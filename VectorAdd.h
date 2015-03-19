@@ -32,10 +32,6 @@ class VectorAddParallel {
 		/* Destructor so that the memory can be freed */
 		~VectorAddParallel() {};
 
-		void sayHello() {
-			std::cout << "hello" << std::endl;
-		}
-
 		/* Function to create a kernel */
 		void createKernel(const std::string kernelSource, std::string kernelName);
 
@@ -45,6 +41,11 @@ class VectorAddParallel {
 
 		/* Function to print the results */
 		void printResults();
+
+		void test(std::vector<float> & tst) {
+			float x = 777;
+			tst.push_back(x);
+		};
 
 	private:
 

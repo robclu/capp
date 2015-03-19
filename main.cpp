@@ -44,12 +44,14 @@ int main() {
 	input.push_back(A); input.push_back(B);
 	output.push_back(C);
 
-	/* Setup opengl */
-//	vecProgram.setupOpencl(DEVICE_TYPE);
-	vecProgram.createKernel(KERNEL_SOURCE, KERNEL_NAME);
-
 	/* Time and run the kernel */
 	vecProgram.runKernel(input, output);
+ 
+	vector<float> tester;
+    tester.push_back(3);
+	vecProgram.test(tester);
+
+	cout << tester[1] << ".. ... .." << endl;
 
 	if (VECTOR_SIZE < 20) {
 		vecProgram.printResults();

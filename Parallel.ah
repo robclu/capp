@@ -30,11 +30,17 @@ aspect Parallel
 		// OpenCL program name on which to apply aspect
 		pointcut programs() = "VectorAddParallel";	
 
+		// Scope for the programs 
+		pointcut scope() = "% ...::VectorAddParallel::%(...)";
+
 		// Sets up opencl context in target class
 		pointcut cl_setup() = construction(programs());
 
 		// Pointcut to modify the kernel execution
-		pointcut kernel_setup() = execution("% ...::runKernel(...)") && within(programs());
+		pointcut kernel_setup() = construction(programs());
+
+		// Pointcut used to simplify running the kernel
+		pointcut kernel_run() = call("% ...::runKernel(...)");
 		
 		// Class that will hold the OpenCL variables
 		slice class cl_variables
@@ -67,7 +73,7 @@ aspect Parallel
 		advice programs() : slice cl_variables;
 
 		// Setup of the OpenCl environment 
-		advice cl_setup() : after() 
+		advice cl_setup() : around() 
 		{
 			// Get the available opencl platforms 
 			cl::Platform::get(&(tjp->that()->platforms));
@@ -96,12 +102,14 @@ aspect Parallel
 			if (tjp->that()->devices.size() > 0) {
 				tjp->that()->queue = cl::CommandQueue(tjp->that()->context, tjp->that()->devices[0]);
 			}
+
+			tjp->proceed();
 		}
 
 		// Setup a kernel for the parallel program
-		advice kernel_setup() : around() 
+		advice kernel_setup() : after() 
 		{
-			ifstream kernel_source(tjp->that()->kernel_source);	
+			ifstream kernel_source(tjp->that()->kernel_source.c_str());	
 
 			// Convert the kernel source to a string 
 			string source_string(istreambuf_iterator<char>(kernel_source),
@@ -111,12 +119,29 @@ aspect Parallel
 			cl::Program::Sources source(1, make_pair(source_string.c_str(), source_string.length() + 1));
 
 			// Create OpenCL program from context and source and build it 
-			tjp->that()->program = cl::Program(tjp->that()->contet, source);
+			tjp->that()->program = cl::Program(tjp->that()->context, source);
 			tjp->that()->program.build(tjp->that()->devices);
 
 			// Make the kernel 
-			tjp->that()->kernel = cl::Kernel(tjp->that->program, tjp->that()->kernel_name);
+			tjp->that()->kernel = cl::Kernel(tjp->that()->program, tjp->that()->kernel_name.c_str());
 		}
+
+		// Take care of the ugly OpenCL memory movement 
+		advice kernel_run() : before()
+		{
+			cout << "Tesing function ..." << endl; 
+			vector< vector<float> > * x = tjp->arg<0>();
+
+			cout << "Other sice : " << (*x)[0].size() << endl;
+			for (int i = 0; i < x->size(); i++) {
+				for (int j = 0; j < (*x)[i].size(); j++) 
+					cout << (*x)[i][j] << "  ";
+				cout << endl;
+				}
+			
+			
+		}
+
 };
 
 #endif
