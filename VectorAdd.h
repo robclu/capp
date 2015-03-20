@@ -15,9 +15,10 @@
 #endif 
 
 #define VECTOR_SIZE 16
+#define T			float
 		
-class VectorAddParallel {
-
+class VectorAddParallel
+{
 	public :
 	
 		/* Constructor */
@@ -36,16 +37,11 @@ class VectorAddParallel {
 		void createKernel(const std::string kernelSource, std::string kernelName);
 
 		/* Function to run the kernel */
-		void runKernel(std::vector< std::vector<float> > &inputs,
-					   std::vector< std::vector<float> > &outputs);
+		void runKernel(std::vector< std::vector<T> > &inputs,
+					   std::vector< std::vector<T> > &outputs);
 
 		/* Function to print the results */
 		void printResults();
-
-		void test(std::vector<float> & tst) {
-			float x = 777;
-			tst.push_back(x);
-		};
 
 	private:
 
@@ -61,6 +57,6 @@ class VectorAddParallel {
 		const std::string kernel_name;
 
 		/* The data for the program */
-		std::vector< std::vector<float> > in;			// Input data
-		std::vector< std::vector<float> > out;			// Output data
+		std::vector< std::vector<T> > in;			// Input data
+		std::vector< std::vector<T> > out;			// Output data
 };

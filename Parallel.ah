@@ -21,6 +21,9 @@
 #include <CL/cl.hpp>
 #endif
 
+#define T	 float   
+#define This tjp->that()		// Pointer to the joinpoint instance
+
 using namespace std;
 
 aspect Parallel 
@@ -40,7 +43,7 @@ aspect Parallel
 		pointcut kernel_setup() = construction(programs());
 
 		// Pointcut used to simplify running the kernel
-		pointcut kernel_run() = call("% ...::runKernel(...)");
+		pointcut kernel_run() = execution("% ...::runKernel(...)");
 		
 		// Class that will hold the OpenCL variables
 		slice class cl_variables
@@ -89,9 +92,18 @@ aspect Parallel
 			else if (tjp->that()->device_type == "CPU" && tjp->that()->platforms.size() > 1) {
 				cl_context_properties ctext_properties[3] = {
 					CL_CONTEXT_PLATFORM,
-					(cl_context_properties)(tjp->that()->platforms[1])(), 0					// platfomrms[1] == CPU
+					(cl_context_properties)(tjp->that()->platforms[1])(), 0					
 				};
 				tjp->that()->context = cl::Context(CL_DEVICE_TYPE_CPU, ctext_properties);
+			}
+			else {
+				// One platform then the default type must be used 
+				cl_context_properties ctext_properties[3] = {
+					CL_CONTEXT_PLATFORM,
+					(cl_context_properties)(tjp->that()->platforms[0])(),
+					0
+				};
+				tjp->that()->context = cl::Context(CL_DEVICE_TYPE_DEFAULT, ctext_properties);
 			}
 
 			// Get devices for the chosen platform 
@@ -129,19 +141,48 @@ aspect Parallel
 		// Take care of the ugly OpenCL memory movement 
 		advice kernel_run() : before()
 		{
-			cout << "Tesing function ..." << endl; 
-			vector< vector<float> > * x = tjp->arg<0>();
 
-			cout << "Other sice : " << (*x)[0].size() << endl;
-			for (int i = 0; i < x->size(); i++) {
-				for (int j = 0; j < (*x)[i].size(); j++) 
-					cout << (*x)[i][j] << "  ";
-				cout << endl;
-				}
-			
-			
+			vector< vector<T> > * inputs  = tjp->arg<0>();			// Arg(0) of runKernel(..) - kernel inputs
+			vector< vector<T> > * outputs = tjp->arg<1>();			// Arg(1) of runKernel(..) - kernel outputs
+
+			// Create the input buffers
+			for (size_t i = 0; i < inputs->size(); i++) {
+				// Create a buffer
+				This->buffers.push_back(cl::Buffer(This->context, CL_MEM_READ_ONLY, (*inputs)[i].size() * sizeof(T)));
+				// Copy data from input vector (host) to device buffer (device)
+				This->queue.enqueueWriteBuffer(This->buffers.back(), CL_TRUE, 0, (*inputs)[i].size() * sizeof(T), &((*inputs)[i][0]));
+			}
+
+			// Create the output buffers
+			for (size_t i = 0; i < outputs->size(); i++) {
+				This->buffers.push_back(cl::Buffer(This->context, CL_MEM_WRITE_ONLY, (*outputs)[i].size() * sizeof(T)));
+			}
+
+			// Set the kernel arguments
+			for (size_t i = 0; i < This->buffers.size(); i++) {
+				This->kernel.setArg(i, This->buffers[i]);
+			}
+
+			// Set the work group dimensions
+			cl::NDRange global((*inputs)[0].size());
+			cl::NDRange local(1);					
+
+			// Place the kernel on the command queue
+			This->queue.enqueueNDRangeKernel(This->kernel, cl::NullRange, global, local);
+
+			// Get the results back to the output vecto
+			for (size_t i = 0; i < outputs->size(); i++) {
+				// Create a buffer for the results from the kernel
+				T * results = new T[(*outputs)[0].size()];
+
+				// Move the result from the device to the host
+				This->queue.enqueueReadBuffer(This->buffers[inputs->size() + i], CL_TRUE, 0, (*outputs)[i].size() * sizeof(T), results);
+
+				// Put the result into the output vector
+				(*outputs)[i] = vector<T>(results, results + (*outputs)[i].size());
+				free(results);
+			}
 		}
-
 };
 
 #endif

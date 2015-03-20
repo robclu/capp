@@ -14,28 +14,28 @@
 #include "VectorAdd.h"
 
 #define MAX_SOURCE_SIZE (0x100000)		// Largest source file size
-const std::string DEVICE_TYPE = "GPU";
+const std::string DEVICE_TYPE = "CPU";
 const std::string KERNEL_SOURCE = "vectoradd.cl";
 const std::string KERNEL_NAME = "vectoradd";
 
 using namespace std;
 
-int main() {
-	
+int main() 
+{	
 	/* Create the VectorAdd object */
 	VectorAddParallel vecProgram(DEVICE_TYPE, 
 								 KERNEL_SOURCE,	
 								 KERNEL_NAME);
 
-	vector< vector<float> > input;
-	vector< vector<float> > output;
+	vector< vector<T> > input;
+	vector< vector<T> > output;
 
-	vector<float> A(VECTOR_SIZE);
-	vector<float> B(VECTOR_SIZE);
-	vector<float> C(VECTOR_SIZE);
+	vector<T> A(VECTOR_SIZE);
+	vector<T> B(VECTOR_SIZE);
+	vector<T> C(VECTOR_SIZE);
 
 	/* Create some input data data */
-	for (int i = 0; i < VECTOR_SIZE; i++) {
+	for (size_t i = 0; i < VECTOR_SIZE; i++) {
 		A[i] = i;
 		B[i] = i;
 		C[i] = 0;
@@ -46,12 +46,6 @@ int main() {
 
 	/* Time and run the kernel */
 	vecProgram.runKernel(input, output);
- 
-	vector<float> tester;
-    tester.push_back(3);
-	vecProgram.test(tester);
-
-	cout << tester[1] << ".. ... .." << endl;
 
 	if (VECTOR_SIZE < 20) {
 		vecProgram.printResults();
