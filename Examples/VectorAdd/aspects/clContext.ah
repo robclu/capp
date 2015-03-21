@@ -1,0 +1,66 @@
+/*
+ * Abstract aspect that defines how a parallel aspect will be implemented.
+ * This allows for more specific aspects to be derived from it that do not 
+ * have to deal with the setup of the parallel context but rather just define
+ * where to setup the parallel context.
+ */
+
+#ifndef __CL_CONTEXT__
+#define __CL_CONTEXT__
+
+#include <vector>
+#include <CL/cl.hpp>
+
+using namespace std;
+
+aspect clContext
+{
+	public:
+
+		// Class that holds any necessary OpenCL variables and 
+		// calls any necessary OpenCL functions 
+		slice class clInstance 
+		{
+			private:
+				// OpenCL context
+				cl::Context context;
+
+				// OpenCL available platforms
+				vector<cl::Platform> platforms;
+
+				// Devices available for the chosen platform 
+				vector<cl::Device> devices;
+
+				// OpenCl command queue 
+				cl::CommandQueue queue;
+
+				// OpenCL kernel that will be executed on the device
+				cl::Kernel kernel;
+
+				// OpenCL program 
+				cl::Program program; 
+
+				// OpenCL buffers that are used to move data between the host
+				// memory and the device memory when the kernel is executed
+				vector<cl::Buffer> buffers;
+		};
+
+		// Virtual pointcuts which must be set to the cpp classes that will need
+		// the pointcuts advice (which is defined below)
+		pointcut virtual programs() = 0;
+
+		// Insert the class clContext - all its variables and functions into the
+		// classes defined bu programs
+		advice programs() : slice clInstance;
+
+		// Advice that will act on the instances defined above 
+
+
+		// Functions to setup the parallel instance 
+		//void setupCL(clInstance * cl) 
+		//{		
+		//}
+};
+
+#endif	
+			

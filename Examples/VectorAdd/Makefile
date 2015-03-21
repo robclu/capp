@@ -5,23 +5,19 @@
 #										  #		
 ###########################################
 
-EXE 		= Examples/VectorAdd/VectorAdd
-
-##########################################
-# 			DIRECTORIES 				 #
-#########################################
-
-EXAMPLES  	= Examples
-EXAMPLE   	=
+EXE 		= VectorAdd
 
 ##########################################
 # 				SOURCES					 #
 ##########################################
 
-CPP_SRCS 	= Examples/VectorAdd/VectorAdd.cpp \
-			  Examples/VectorAdd/main.cpp
+CPP_MODULES := VectorAdd.cpp main.cpp
+CPP_SOURCES := $(addprefix src/,$(CPP_MODULES))
 
-ASPECT_SRCS = 
+##########################################
+#				DIRECTORIES 			 #
+#########################################
+
 
 ##########################################
 #				LIBRARIES 				 #
@@ -33,7 +29,7 @@ LIBS 		= -lOpenCL
 # 		INCLUDE DIRECTORIES				#
 #########################################
 
-A_INCLUDES 	=
+INCLUDES 	= src
 
 #########################################
 #		LIBRARY DIRECTORIES 			#
@@ -51,8 +47,8 @@ CXX_FLAGS 	= -O3
 all: $(EXE)
 
 $(EXE):
-	$(CXX) $(CXX_FLAGS) -o $(EXE) $(CPP_SRCS)  \
-		$(ASPECT_SRCS) $(LIBS)
+	$(CXX) $(CXX_FLAGS) -o $(EXE) $(CPP_SOURCES)  \
+		$(LIBS)
 
 clean:
 	rm -rf $(EXE)

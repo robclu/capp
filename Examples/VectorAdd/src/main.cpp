@@ -15,7 +15,7 @@
 
 #define MAX_SOURCE_SIZE (0x100000)		// Largest source file size
 const std::string DEVICE_TYPE = "CPU";
-const std::string KERNEL_SOURCE = "vectoradd.cl";
+const std::string KERNEL_SOURCE = "kernels/vectoradd.cl";
 const std::string KERNEL_NAME = "vectoradd";
 
 using namespace std;
