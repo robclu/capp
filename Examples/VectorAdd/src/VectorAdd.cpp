@@ -39,50 +39,51 @@ void VectorAddParallel::createKernel(const std::string kernelSource, std::string
 void VectorAddParallel::runKernel(std::vector< std::vector<float> > &inputs,	
 								  std::vector< std::vector<float> > &outputs) {
 
-	/* Copy the given data to the class data elements. */
+	// Copy the given data to the class data elements. 
 	in = inputs;
 
-	/* Create some buffers for the inputs. */
+	// Create some buffers for the inputs. 
 	//for (int i = 0; i < inputs.size(); i++) {
-		/* Create a buffer for each of the inputs */
+		// Create a buffer for each of the inputs 
 	//	buffers.push_back(cl::Buffer(context, CL_MEM_READ_ONLY, inputs[i].size() * sizeof(float)));
 
-		/* Copy the input data over to the created buffer */
+		// Copy the input data over to the created buffer 
 	//	queue.enqueueWriteBuffer(buffers.back(), CL_TRUE, 0, inputs[i].size() * sizeof(float), &inputs[i][0]);
 	//}
 
-	/* Create some buffers for the outputs */
+	// Create some buffers for the outputs 
 	//for (int i = 0; i < outputs.size(); i++) {
 	//	buffers.push_back(cl::Buffer(context, CL_MEM_WRITE_ONLY, outputs[i].size() * sizeof(float)));
 	//}
 
-	/* Set the arguments for the kernel */
+	// Set the arguments for the kernel 
 	//for (int i = 0; i < buffers.size(); i++) {
 	//	kernel.setArg(i, buffers[i]);
 	//}
 
-	/* This should allow the user to set the kernel dimension but for this
-	 * simple example it will just be defined as N x 1 */
+	// This should allow the user to set the kernel dimension but for this
+	// simple example it will just be defined as N x 1 
 	//cl::NDRange global(inputs[0].size());
 	//cl::NDRange local(4);
 
-	/* Place the kernel on the queue */
+	// Place the kernel on the queue 
 	//queue.enqueueNDRangeKernel(kernel, cl::NullRange, global, local);
 
-	/* Read the results of the kernel into the output vector */
+	// Read the results of the kernel into the output vector 
 	//float * result = new float[VECTOR_SIZE];
 	//size_t counter = 0;
 	//for (int i = 0; i < outputs.size(); i++) {
 		//queue.enqueueReadBuffer(buffers[inputs.size() + counter++], CL_TRUE, 0, outputs[i].size() * sizeof(float), result);
-		///* Copy the result from the buffer into the vector. */
+		// Copy the result from the buffer into the vector. 
 	//	outputs[i] = std::vector<float> (result, result + outputs[i].size());
 	//}
 
 	//free(result);
 
-	/* Copy the results to the class */
+	// Copy the results to the class 
 	out = outputs;
 }
+
 
 void VectorAddParallel::printResults() {
 

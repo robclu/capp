@@ -17,18 +17,15 @@
 #define VECTOR_SIZE 16
 #define T			float
 		
-class VectorAddParallel
+class VectorAddParallel 
 {
 	public :
 	
 		/* Constructor */
-		VectorAddParallel(const std::string dev_type,
-					      const std::string k_source_file,
-						  const std::string k_name) 
-			: device_type(dev_type), 
-			  kernel_source(k_source_file),
-			  kernel_name(k_name)
-		{}
+		VectorAddParallel(const std::string dType,
+					      const std::string kSource,
+						  const std::string kName) 
+			: deviceType(dType), kernelSource(kSource), kernelName(kName) {}
 
 		/* Destructor so that the memory can be freed */
 		~VectorAddParallel() {};
@@ -48,13 +45,13 @@ class VectorAddParallel
 		// Device type to use 
 		//		: GPU
 		//		: CPU
-		const std::string device_type;
+		std::string deviceType;
 
 		// The name of the kernel source file
-		const std::string kernel_source;
+		std::string kernelSource;
 
 		// The name of the kernel
-		const std::string kernel_name;
+		std::string kernelName;
 
 		/* The data for the program */
 		std::vector< std::vector<T> > in;			// Input data

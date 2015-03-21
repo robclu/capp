@@ -12,7 +12,9 @@ EXE 		= VectorAdd
 ##########################################
 
 CPP_MODULES := VectorAdd.cpp main.cpp
+ASP_MODULES := clContext.cc
 CPP_SOURCES := $(addprefix src/,$(CPP_MODULES))
+ASP_SOURCES := $(addprefix aspects/,$(ASP_MODULES))
 
 ##########################################
 #				DIRECTORIES 			 #
@@ -48,7 +50,7 @@ all: $(EXE)
 
 $(EXE):
 	$(CXX) $(CXX_FLAGS) -o $(EXE) $(CPP_SOURCES)  \
-		$(LIBS)
+		$(ASP_SOURCES) $(LIBS)
 
 clean:
 	rm -rf $(EXE)

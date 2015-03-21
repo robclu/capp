@@ -48,7 +48,7 @@ aspect Parallel : public clContext
 		pointcut kernel_run() = execution("% ...::runKernel(...)");
 	
 		// Setup of the OpenCl environment 
-		advice cl_setup() : around() 
+		/*advice cl_setup() : around() 
 		{
 			// Get the available opencl platforms 
 			cl::Platform::get(&(tjp->that()->platforms));
@@ -88,10 +88,10 @@ aspect Parallel : public clContext
 			}
 
 			tjp->proceed();
-		}
+		}*/
 
 		// Setup a kernel for the parallel program
-		advice kernel_setup() : after() 
+		/*advice kernel_setup() : after() 
 		{
 			ifstream kernel_source(tjp->that()->kernel_source.c_str());	
 
@@ -108,7 +108,7 @@ aspect Parallel : public clContext
 
 			// Make the kernel 
 			tjp->that()->kernel = cl::Kernel(tjp->that()->program, tjp->that()->kernel_name.c_str());
-		}
+		}*/
 
 		// Take care of the ugly OpenCL memory movement 
 		advice kernel_run() : before()

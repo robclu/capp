@@ -3,25 +3,33 @@
  * This allows for more specific aspects to be derived from it that do not 
  * have to deal with the setup of the parallel context but rather just define
  * where to setup the parallel context.
+ *
+ * All member funciton implementations for the class clInstance are in
+ * clInstance.cc
+ *
  */
 
 #ifndef __CL_CONTEXT__
 #define __CL_CONTEXT__
 
+#include <stdio.h>
+#include <iostream>
 #include <vector>
 #include <CL/cl.hpp>
+
+#define This	tjp->that()		// Pointer to context on which advice acts
+#define T		float			// Type of data the kernel will operate on
 
 using namespace std;
 
 aspect clContext
 {
 	public:
-
 		// Class that holds any necessary OpenCL variables and 
 		// calls any necessary OpenCL functions 
-		slice class clInstance 
+		class clInstance 
 		{
-			private:
+			public:
 				// OpenCL context
 				cl::Context context;
 
@@ -38,28 +46,49 @@ aspect clContext
 				cl::Kernel kernel;
 
 				// OpenCL program 
-				cl::Program program; 
+				cl::Program program;
 
 				// OpenCL buffers that are used to move data between the host
 				// memory and the device memory when the kernel is executed
 				vector<cl::Buffer> buffers;
+
+				// All instances must have a run kernel function
+				virtual void runKernel(vector< vector<T> >& inputs,
+									   vector< vector<T> >& outputs) = 0;
+
+			private:
+				// Sets up the necessary OpenCL variables using the device type
+				// and the kernel source file
+				void setupOpenCL(const string& devType, const string& kSource, string& kName);
+
+				// Sets up the OpenCL kernel
+				void setupKernel(const string& kSource, const string& kName);
 		};
 
 		// Virtual pointcuts which must be set to the cpp classes that will need
 		// the pointcuts advice (which is defined below)
 		pointcut virtual programs() = 0;
 
+		// Pointcuts that run on contruction and setup OpenCL
+		// Sets up both the OpenCL variables and the kernel
+		pointcut clSetup() = construction(programs());		
+
+		// Pointcut to manage opencl variables (mostly mem) when the kernel is
+		// executed
+		pointcut manageKernel() = execution(" ...::...::runKernel(...)") && within(programs());
+
 		// Insert the class clContext - all its variables and functions into the
 		// classes defined bu programs
-		advice programs() : slice clInstance;
+		advice programs() : baseclass(clInstance);
 
-		// Advice that will act on the instances defined above 
-
-
-		// Functions to setup the parallel instance 
-		//void setupCL(clInstance * cl) 
-		//{		
-		//}
+		// setupOpenCL() will be inserted into the the classes defined by
+		// programs() which are being made to call their own setupOpenCL() fn's
+		advice clSetup() : around() 
+		{
+			This->setupOpenCL(This->deviceType, This->kernelSource, This->kernelName);
+			This->setupKernel(This->kernelSource, This->kernelName);
+			tjp->proceed();
+		}
 };
 
 #endif	
