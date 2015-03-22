@@ -7,18 +7,14 @@
  *
  */
 
-#include <vector>
-#include <iostream>
-//#include <chrono>						// No C++11 for aspectC++ until version 2.0 
-
 #include "VectorAdd.h"
 
-#define MAX_SOURCE_SIZE (0x100000)		// Largest source file size
-const std::string DEVICE_TYPE = "CPU";
-const std::string KERNEL_SOURCE = "vectoradd.cl";
-const std::string KERNEL_NAME = "vectoradd";
+#include <vector>
+#include <iostream>
 
-using namespace std;
+const string DEVICE_TYPE   = "CPU";
+const string KERNEL_SOURCE = "vectoradd.cl";
+const string KERNEL_NAME   = "vectoradd";
 
 int main() 
 {	

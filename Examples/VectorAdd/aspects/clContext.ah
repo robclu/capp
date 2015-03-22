@@ -9,13 +9,20 @@
  *
  */
 
-#ifndef __CL_CONTEXT__
-#define __CL_CONTEXT__
+#ifndef __CL_CONTEXT__ASPECT__
+#define __CL_CONTEXT__ASPECT__
 
-#include <stdio.h>
-#include <iostream>
 #include <vector>
-#include <CL/cl.hpp>
+
+// Make sure we are using version 1.1
+// otherwise NVIDIA GPU's wont work
+#ifdef __APPLE__
+	#include <OpenCL/opencl.hpp>
+#else
+	#include <CL/cl.hpp>
+	#undef   CL_VERSION_1_2
+#endif
+
 
 #define This	tjp->that()		// Pointer to context on which advice acts
 #define T		float			// Type of data the kernel will operate on
@@ -59,10 +66,14 @@ aspect clContext
 			private:
 				// Sets up the necessary OpenCL variables using the device type
 				// and the kernel source file
-				void setupOpenCL(const string& devType, const string& kSource, string& kName);
+				void setupOpenCL(const string& devType, const string& kSource);
 
 				// Sets up the OpenCL kernel
 				void setupKernel(const string& kSource, const string& kName);
+
+				// Manages data buffers on kernel execution
+				void manageClBuffers(vector< vector<T> > * inputs,
+								   vector< vector<T> > * outputs);
 		};
 
 		// Virtual pointcuts which must be set to the cpp classes that will need
@@ -75,19 +86,30 @@ aspect clContext
 
 		// Pointcut to manage opencl variables (mostly mem) when the kernel is
 		// executed
-		pointcut manageKernel() = execution(" ...::...::runKernel(...)") && within(programs());
+		pointcut manageRunKernel() = execution("% ...::...::runKernel(...)") && 
+									 within(programs());
 
 		// Insert the class clContext - all its variables and functions into the
 		// classes defined bu programs
 		advice programs() : baseclass(clInstance);
 
-		// setupOpenCL() will be inserted into the the classes defined by
-		// programs() which are being made to call their own setupOpenCL() fn's
+		// setupOpenCL(...) will be inserted into the classes defined by
+		// programs() which are essentially calling their own setupOpenCL() fn's
 		advice clSetup() : around() 
 		{
-			This->setupOpenCL(This->deviceType, This->kernelSource, This->kernelName);
+			This->setupOpenCL(This->deviceType, This->kernelSource);
 			This->setupKernel(This->kernelSource, This->kernelName);
 			tjp->proceed();
+		}
+
+		// Advice that will make the running of a kernel simple 
+		advice manageRunKernel() : before() 
+		{
+			// Pass as arguments pointers to the runKernel() fn's arguments
+			// i.e the inputs and outputs vectors which are modified, not
+			// copied, so that the results are stored in the given outputs
+			// vector
+			This->manageClBuffers(tjp->arg<0>(), tjp->arg<1>());
 		}
 };
 

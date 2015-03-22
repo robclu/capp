@@ -5,7 +5,28 @@
 #										  #		
 ###########################################
 
-EXE 		= VectorAdd
+EXE_NAME 	= VectorAdd
+
+###########################################
+# 			DIRECTORIES					  #
+#										  #
+# BUILD_DIR - Name of the directory for   #
+# 			  executables				  #
+# SRC_DIR	- Name of the directory where # 
+# 			  all c, cpp files are		  #
+# ASP_DIR   - Name of directory where 	  #
+# 		      aspects are				  #
+###########################################
+
+BUILD_DIR 	= builds
+SRC_DIR		= src
+ASP_DIR		= aspects
+
+###########################################
+#			Executable					  #
+###########################################
+
+EXE 		= $(addprefix $(BUILD_DIR)/,$(EXE_NAME))
 
 ##########################################
 # 				SOURCES					 #
@@ -13,8 +34,9 @@ EXE 		= VectorAdd
 
 CPP_MODULES := VectorAdd.cpp main.cpp
 ASP_MODULES := clContext.cc
-CPP_SOURCES := $(addprefix src/,$(CPP_MODULES))
-ASP_SOURCES := $(addprefix aspects/,$(ASP_MODULES))
+
+CPP_SOURCES := $(addprefix $(SRC_DIR)/,$(CPP_MODULES))
+ASP_SOURCES := $(addprefix $(ASP_DIR)/,$(ASP_MODULES))
 
 ##########################################
 #				DIRECTORIES 			 #
