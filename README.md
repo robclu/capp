@@ -45,6 +45,9 @@ The following is the directory structure which must be used:
 --- (Usually empty, but used by the aspect weaver and the compiler to build executables)
 --Makefile
 ```
+**Note** Please do not change the name, move or delete the ```temp``` directory
+or else this wont compile. A fix for this will be implemented in the near
+future.
 
 ## Makefile
 The Makefile must be in the project root directory as specified above. The directory names can be changed appropriately in the Makefile by editing the *_DIR variables in the Makefile.

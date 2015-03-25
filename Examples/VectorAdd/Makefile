@@ -23,7 +23,7 @@ BUILD_DIR 	= builds
 SRC_DIR		= src
 ASP_DIR		= aspects
 TST_DIR 	= tests
-TMP_DIR		= tmp
+TMP_DIR		= temp
 
 ###########################################
 #			Executable					  #
@@ -87,7 +87,7 @@ CXX_FLAGS 	=
 
 .PHONY: all target tests
 
-all: target tests
+all: target
 
 target: $(WEAVE) SETUP $(EXE) FINISH
 
@@ -112,9 +112,9 @@ $(WEAVE):
 SETUP:
 	@echo Moving temp files ...
 	@echo ""
-	@bash -c "mv main.acc main.cpp && mv main.cpp tmp/"	
-	@bash -c "mv clContext.acc clContext.cpp && mv clContext.cpp tmp/"
-	@bash -c "mv VectorAdd.acc VectorAdd.cpp && mv VectorAdd.cpp tmp/"
+	@bash -c "mv main.acc main.cpp && mv main.cpp temp/"	
+	@bash -c "mv clContext.acc clContext.cpp && mv clContext.cpp temp/"
+	@bash -c "mv VectorAdd.acc VectorAdd.cpp && mv VectorAdd.cpp temp/"
 	@echo ""
 	@echo Finished moving the temp files!
 
