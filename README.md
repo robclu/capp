@@ -39,6 +39,10 @@ The following is the directory structure which must be used:
 ---*.h, *.cpp (All cpp source)
 --builds
 --- All executables reside inside builds
+--tests
+--- tests.cpp (The test source file)
+--temp
+--- (Usually empty, but used by the aspect weaver and the compiler to build executables)
 --Makefile
 ```
 
