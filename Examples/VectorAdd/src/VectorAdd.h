@@ -43,6 +43,9 @@ class VectorAddParallel
 		// Function to print the results 
 		void printResults();
 
+		// Get the type of device
+		string getDeviceType() { return deviceType; }
+
 	private:
 		// Device type (CPU or GPU)
 		const string deviceType;

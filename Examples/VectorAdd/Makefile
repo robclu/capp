@@ -48,7 +48,6 @@ TST_MODULES += $(COM_MODULES) \
 
 COM_SOURCES := $(addprefix $(SRC_DIR)/,$(COM_MODULES))
 TST_SOURCES := $(addprefix $(TST_DIR)/,$(TST_MODULES))
-#TST_SOURCES += $(addprefix $(TST_DIR)/,$(TMP_MODULES))
 TGT_SOURCES := $(addprefix $(SRC_DIR)/,$(TGT_MODULES))
 ASP_SOURCES := $(addprefix $(ASP_DIR)/,$(ASP_MODULES))
 TMP_SOURCES := $(addprefix $(TMP_DIR)/,$(TMP_MODULES))
@@ -69,7 +68,7 @@ TEST_LIBS 	= -lgtest -lgtest_main -lpthread
 # 		INCLUDE DIRECTORIES				#
 #########################################
 
-INCLUDES 	= -Isrc -I/usr/include/gtest
+INCLUDES 	= -Isrc -I/usr/include/gtest 
 
 #########################################
 #		LIBRARY DIRECTORIES 			#
@@ -140,13 +139,14 @@ TEST_SETUP:
 	# Move the woven files into the test directory	
 	bash -c "mv clContext.acc clContext.cpp && mv clContext.cpp tests/"
 	bash -c "mv VectorAdd.acc VectorAdd.cpp && mv VectorAdd.cpp tests/"
+	bash -c "cp src/VectorAdd.h tests/VectorAdd.h"
 
 $(TEST_EXE):
 	$(CXX) -o $(TEST_EXE) $(TST_SOURCES) $(LIBS)	\
 		$(TEST_LIBS) $(INCLUDES)
 
 TEST_FINISH:
-	bash -c "rm -rf test/clContext.cpp tests/VectorAdd.cpp"
+	bash -c "rm -rf tests/clContext.cpp tests/VectorAdd.*"
 
 #################################################################################
 # 								  CLEANING	     								#

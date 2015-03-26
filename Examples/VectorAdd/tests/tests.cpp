@@ -1,9 +1,18 @@
 #include <gtest/gtest.h>
-//#include "VectorAdd.h"
+#include "VectorAdd.h"
 
-//#include <boost/test/unit_test.hpp>
+using namespace std;
 
-// Put all tests here
+// Define some variables for setting up a parallel class
+TEST(VPar, conSrt)
+{
+	const string devType = "CPU";
+	const string kSource = "vadd.cl";
+	const string kName   = "VectorAddKernel";
+	VectorAddParallel vAddPar(devType, kSource, kName);
+
+	EXPECT_EQ(devType, vAddPar.getDeviceType());
+}
 
 int main(int argc, char** argv) 
 {
