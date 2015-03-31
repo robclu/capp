@@ -423,6 +423,15 @@ void runKernel(vector< vector<T> > &inputs,
 		// Function to print the results 
 		void printResults();
 
+		// Get the type of device
+		string getDeviceType() const { return deviceType; }
+
+		// Get the kernel name 
+		string getKernelName() const { return kernelName; }
+
+		// Check that the kernel source is in a valid format
+		bool validKernelSourceFile() const;
+
 	private:
 		// Device type (CPU or GPU)
 		const string deviceType;
@@ -437,7 +446,7 @@ void runKernel(vector< vector<T> > &inputs,
 		vector< vector<T> > in;			// Input data
 		vector< vector<T> > out;			// Output data
 
-#line 441 "main.acc"
+#line 450 "main.acc"
 
 template <typename TResult, typename TThat, typename TTarget, typename TArgs> struct TJP__ZN17VectorAddParallelC1ERK17VectorAddParallel_0 {
   typedef TJP__ZN17VectorAddParallelC1ERK17VectorAddParallel_0 __TJP;
@@ -446,7 +455,7 @@ template <typename TResult, typename TThat, typename TTarget, typename TArgs> st
   typedef TTarget Target;
   enum { ARGS = TArgs::ARGS };
   template <int I> struct Arg : AC::Arg<TArgs, I> {};
-  static const int JPID = 30;
+  static const int JPID = 39;
   static const AC::JPType JPTYPE = (AC::JPType)16;
   struct Res {
     typedef void Type;
@@ -469,9 +478,9 @@ template <typename TResult, typename TThat, typename TTarget, typename TArgs> st
 };
 
 
-#line 59 "src/VectorAdd.h"
+#line 68 "src/VectorAdd.h"
 
-#line 475 "main.acc"
+#line 484 "main.acc"
 
 public:
 inline VectorAddParallel (const VectorAddParallel &arg0) : clContext::clInstance (arg0), deviceType (arg0.deviceType), kernelSource (arg0.kernelSource), kernelName (arg0.kernelName), in (arg0.in), out (arg0.out) {
@@ -484,7 +493,7 @@ inline VectorAddParallel (const VectorAddParallel &arg0) : clContext::clInstance
 
 }
 
-#line 59 "src/VectorAdd.h"
+#line 68 "src/VectorAdd.h"
 };
 
 #endif
@@ -531,7 +540,7 @@ int main()
 	return 0;
 }
 
-#line 535 "main.acc"
+#line 544 "main.acc"
 
 #ifdef __ac_FIRST_FILE__home_joker_Programs_OpenCL_EasyCL_Examples_VectorAdd_src_main_cpp__
 #ifdef __ac_need__home_joker_Programs_OpenCL_EasyCL_Examples_VectorAdd_aspects_clContext_ah__
@@ -558,20 +567,20 @@ int main()
 
 #line 1 "aspects/VectorAdd.ah"
 
-#line 562 "main.acc"
+#line 571 "main.acc"
 class clContext;
 
 #line 13 "aspects/VectorAdd.ah"
 class VectorAdd : public clContext
 {
-#line 568 "main.acc"
+#line 577 "main.acc"
 public:
   template <typename, int = 0> struct __CALL_VectorAdd {};
   template <typename, int> friend struct __CALL_VectorAdd;
 private:
 #line 14 "aspects/VectorAdd.ah"
 
-#line 575 "main.acc"
+#line 584 "main.acc"
 
 public:
   static VectorAdd *aspectof () {
@@ -585,7 +594,7 @@ private:
 
 #line 14 "aspects/VectorAdd.ah"
 
-#line 589 "main.acc"
+#line 598 "main.acc"
   friend class ::clContext;
 
 #line 14 "aspects/VectorAdd.ah"
@@ -598,7 +607,7 @@ private:
 	
 
 };
-#line 602 "main.acc"
+#line 611 "main.acc"
 
 namespace AC {
   template <class JoinPoint>

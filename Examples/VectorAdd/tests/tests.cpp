@@ -4,7 +4,7 @@
 using namespace std;
 
 // Define some variables for setting up a parallel class
-TEST(VPar, conSrt)
+TEST(VectorAddParallelTest, canSetClParametersCorrectly)
 {
 	const string devType = "CPU";
 	const string kSource = "vadd.cl";
@@ -12,6 +12,17 @@ TEST(VPar, conSrt)
 	VectorAddParallel vAddPar(devType, kSource, kName);
 
 	EXPECT_EQ(devType, vAddPar.getDeviceType());
+	EXPECT_EQ(kName, vAddPar.getKernelName());
+}
+
+TEST(VectorAddTest, canDetermineIfKernelSourceIsValid)
+{
+	const string devType = "CPU";
+	const string kSource = "vadd.cl";
+	const string kName   = "VectorAddKernel";
+	VectorAddParallel vAddPar(devType, kSource, kName);
+
+	ASSERT_FALSE(vAddPar.validKernelSourceFile());
 }
 
 int main(int argc, char** argv) 

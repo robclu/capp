@@ -437,6 +437,15 @@ void runKernel(vector< vector<T> > &inputs,
 		// Function to print the results 
 		void printResults();
 
+		// Get the type of device
+		string getDeviceType() const { return deviceType; }
+
+		// Get the kernel name 
+		string getKernelName() const { return kernelName; }
+
+		// Check that the kernel source is in a valid format
+		bool validKernelSourceFile() const;
+
 	private:
 		// Device type (CPU or GPU)
 		const string deviceType;
@@ -451,7 +460,7 @@ void runKernel(vector< vector<T> > &inputs,
 		vector< vector<T> > in;			// Input data
 		vector< vector<T> > out;			// Output data
 
-#line 455 "VectorAdd.acc"
+#line 464 "VectorAdd.acc"
 
 template <typename TResult, typename TThat, typename TTarget, typename TArgs> struct TJP__ZN17VectorAddParallelC1ERK17VectorAddParallel_0 {
   typedef TJP__ZN17VectorAddParallelC1ERK17VectorAddParallel_0 __TJP;
@@ -460,7 +469,7 @@ template <typename TResult, typename TThat, typename TTarget, typename TArgs> st
   typedef TTarget Target;
   enum { ARGS = TArgs::ARGS };
   template <int I> struct Arg : AC::Arg<TArgs, I> {};
-  static const int JPID = 29;
+  static const int JPID = 38;
   static const AC::JPType JPTYPE = (AC::JPType)16;
   struct Res {
     typedef void Type;
@@ -483,9 +492,9 @@ template <typename TResult, typename TThat, typename TTarget, typename TArgs> st
 };
 
 
-#line 59 "src/VectorAdd.h"
+#line 68 "src/VectorAdd.h"
 
-#line 489 "VectorAdd.acc"
+#line 498 "VectorAdd.acc"
 
 public:
 inline VectorAddParallel (const VectorAddParallel &arg0) : clContext::clInstance (arg0), deviceType (arg0.deviceType), kernelSource (arg0.kernelSource), kernelName (arg0.kernelName), in (arg0.in), out (arg0.out) {
@@ -498,16 +507,17 @@ inline VectorAddParallel (const VectorAddParallel &arg0) : clContext::clInstance
 
 }
 
-#line 59 "src/VectorAdd.h"
+#line 68 "src/VectorAdd.h"
 };
 
 #endif
 
 #line 6 "src/VectorAdd.cpp"
 #include <iostream>
+#include <cstring>
 
 
-#line 511 "VectorAdd.acc"
+#line 521 "VectorAdd.acc"
 
 
 template <typename TResult, typename TThat, typename TTarget, typename TArgs> struct TJP__ZN17VectorAddParallel9runKernelERN3stdE6vectorIN3stdE6vectorIfEERN3stdE6vectorIN3stdE6vectorIfEE_0 {
@@ -517,7 +527,7 @@ template <typename TResult, typename TThat, typename TTarget, typename TArgs> st
   typedef TTarget Target;
   enum { ARGS = TArgs::ARGS };
   template <int I> struct Arg : AC::Arg<TArgs, I> {};
-  static const int JPID = 22;
+  static const int JPID = 25;
   static const AC::JPType JPTYPE = (AC::JPType)8;
   struct Res {
     typedef TResult Type;
@@ -536,11 +546,11 @@ template <typename TResult, typename TThat, typename TTarget, typename TArgs> st
 };
 
 
-#line 8 "src/VectorAdd.cpp"
+#line 9 "src/VectorAdd.cpp"
 void VectorAddParallel::runKernel(std::vector< std::vector<float> > &inputs,	
 								  std::vector< std::vector<float> > &outputs) 
 
-#line 544 "VectorAdd.acc"
+#line 554 "VectorAdd.acc"
 {
   typedef TJP__ZN17VectorAddParallel9runKernelERN3stdE6vectorIN3stdE6vectorIfEERN3stdE6vectorIN3stdE6vectorIfEE_0< void, ::VectorAddParallel , ::VectorAddParallel ,  AC::TL< ::std::vector<std::vector<float> > &, AC::TL< ::std::vector<std::vector<float> > &, AC::TLE > > > __TJP;
     __TJP tjp;
@@ -552,7 +562,7 @@ void VectorAddParallel::runKernel(std::vector< std::vector<float> > &inputs,
   
 }
 __attribute__((always_inline)) inline void VectorAddParallel::__exec_old_runKernel(::std::vector<std::vector<float> > &inputs,::std::vector<std::vector<float> > &outputs)
-#line 10 "src/VectorAdd.cpp"
+#line 11 "src/VectorAdd.cpp"
 {
 	// Copy the given data to the class data elements. 
 	in = inputs;
@@ -561,6 +571,14 @@ __attribute__((always_inline)) inline void VectorAddParallel::__exec_old_runKern
 	out = outputs;
 }
 
+bool VectorAddParallel::validKernelSourceFile() const 
+{
+	size_t found = kernelSource.find(".cl");
+	if (found != string::npos)
+		return true;
+	else 
+		return false;
+}
 
 void VectorAddParallel::printResults() {
 
@@ -585,7 +603,7 @@ void VectorAddParallel::printResults() {
 	}
 }
 
-#line 589 "VectorAdd.acc"
+#line 607 "VectorAdd.acc"
 
 #ifdef __ac_FIRST_FILE__home_joker_Programs_OpenCL_EasyCL_Examples_VectorAdd_src_VectorAdd_cpp__
 #ifdef __ac_need__home_joker_Programs_OpenCL_EasyCL_Examples_VectorAdd_aspects_clContext_ah__
@@ -612,20 +630,20 @@ void VectorAddParallel::printResults() {
 
 #line 1 "aspects/VectorAdd.ah"
 
-#line 616 "VectorAdd.acc"
+#line 634 "VectorAdd.acc"
 class clContext;
 
 #line 13 "aspects/VectorAdd.ah"
 class VectorAdd : public clContext
 {
-#line 622 "VectorAdd.acc"
+#line 640 "VectorAdd.acc"
 public:
   template <typename, int = 0> struct __CALL_VectorAdd {};
   template <typename, int> friend struct __CALL_VectorAdd;
 private:
 #line 14 "aspects/VectorAdd.ah"
 
-#line 629 "VectorAdd.acc"
+#line 647 "VectorAdd.acc"
 
 public:
   static VectorAdd *aspectof () {
@@ -639,7 +657,7 @@ private:
 
 #line 14 "aspects/VectorAdd.ah"
 
-#line 643 "VectorAdd.acc"
+#line 661 "VectorAdd.acc"
   friend class ::clContext;
 
 #line 14 "aspects/VectorAdd.ah"
@@ -652,7 +670,7 @@ private:
 	
 
 };
-#line 656 "VectorAdd.acc"
+#line 674 "VectorAdd.acc"
 
 namespace AC {
   template <class JoinPoint>

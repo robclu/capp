@@ -44,7 +44,13 @@ class VectorAddParallel
 		void printResults();
 
 		// Get the type of device
-		string getDeviceType() { return deviceType; }
+		string getDeviceType() const { return deviceType; }
+
+		// Get the kernel name 
+		string getKernelName() const { return kernelName; }
+
+		// Check that the kernel source is in a valid format
+		bool validKernelSourceFile() const;
 
 	private:
 		// Device type (CPU or GPU)
