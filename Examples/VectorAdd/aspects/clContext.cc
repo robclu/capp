@@ -116,6 +116,3 @@ void clContext::clInstance::manageClBuffers(vector< vector<T> > * inputs, vector
 		free(results);
 	}
 }
-
-	
-

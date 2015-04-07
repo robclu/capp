@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <iostream>
+#include <stdio.h>
 
 const string DEVICE_TYPE   = "CPU";
 const string KERNEL_SOURCE = "vectoradd.cl";
@@ -29,6 +30,10 @@ int main()
 	vector<T> A(VECTOR_SIZE);
 	vector<T> B(VECTOR_SIZE);
 	vector<T> C(VECTOR_SIZE);
+
+	vector<cl::Device> dev = vecProgram.devices;
+
+	printf("%d\n",  dev.size());
 
 	/* Create some input data data */
 	for (size_t i = 0; i < VECTOR_SIZE; i++) {

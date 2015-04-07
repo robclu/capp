@@ -16,14 +16,6 @@ void VectorAddParallel::runKernel(std::vector< std::vector<float> > &inputs,
 	out = outputs;
 }
 
-bool VectorAddParallel::validKernelSourceFile() const 
-{
-	size_t found = kernelSource.find(".cl");
-	if (found != string::npos)
-		return true;
-	else 
-		return false;
-}
 
 void VectorAddParallel::printResults() {
 

@@ -21,7 +21,7 @@
 #include <vector>
 #include <string>
 
-#define VECTOR_SIZE 16
+//#define VECTOR_SIZE 16
 #define T			float
 
 using namespace std;
@@ -48,9 +48,6 @@ class VectorAddParallel
 
 		// Get the kernel name 
 		string getKernelName() const { return kernelName; }
-
-		// Check that the kernel source is in a valid format
-		bool validKernelSourceFile() const;
 
 	private:
 		// Device type (CPU or GPU)

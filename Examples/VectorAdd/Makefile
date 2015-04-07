@@ -5,7 +5,6 @@
 #										  #		
 ###########################################
 
-EXE_NAME 		= VectorAdd
 WIN_EXE_NAME 	= VectorAddWin
 TEST_EXE_NAME 	= TestsVectorAdd
 
@@ -30,7 +29,6 @@ TMP_DIR		= temp
 #			Executable					  #
 ###########################################
 
-EXE 		= $(addprefix $(BUILD_DIR)/,$(EXE_NAME))
 WIN_EXE 	= $(addprefix $(BUILD_DIR)/,$(WIN_EXE_NAME))
 TEST_EXE 	= $(addprefix $(BUILD_DIR)/,$(TEST_EXE_NAME))
 
@@ -39,18 +37,16 @@ TEST_EXE 	= $(addprefix $(BUILD_DIR)/,$(TEST_EXE_NAME))
 ##########################################
 
 COM_MODULES := VectorAdd.cpp 
+HED_MODULES := VectorAdd.h
 TST_MODULES := tests.cpp
-TGT_MODULES := main.cpp
 ASP_MODULES := clContext.cc
-TMP_MODULES := $(COM_MODULES) \
-			   $(TGT_MODULES) \
-			   $(ASP_MODULES:.cc=.cpp)
-TST_MODULES += $(COM_MODULES) \
+TMP_MODULES := VectorAdd.hpp  \
+			   $(TST_MODULES) \
 			   $(ASP_MODULES:.cc=.cpp)
 
 COM_SOURCES := $(addprefix $(SRC_DIR)/,$(COM_MODULES))
-TST_SOURCES := $(addprefix $(TST_DIR)/,$(TST_MODULES))
-TGT_SOURCES := $(addprefix $(SRC_DIR)/,$(TGT_MODULES))
+COM_SOURCES += $(addprefix $(SRC_DIR)/,$(HED_MODULES))
+
 ASP_SOURCES := $(addprefix $(ASP_DIR)/,$(ASP_MODULES))
 TMP_SOURCES := $(addprefix $(TMP_DIR)/,$(TMP_MODULES))
 
@@ -70,7 +66,8 @@ TEST_LIBS 	= -lgtest -lgtest_main -lpthread
 # 		INCLUDE DIRECTORIES				#
 #########################################
 
-INCLUDES 		= -Isrc -I/usr/include/gtest
+INCLUDES 		= -Isrc -I/usr/include/gtest \
+				  -I/usr/local/cuda-7.0/include
 WIN_INCLUDES 	= -I/usr/include -I/usr/local \
 				  -I/usr/share
 
@@ -78,7 +75,7 @@ WIN_INCLUDES 	= -I/usr/include -I/usr/local \
 #		LIBRARY DIRECTORIES 			#
 #########################################
 
-LIB_DIRS 	= 
+LIB_DIRS 	=  
 
 #########################################
 #			COMPILE ARGS 				#
@@ -87,13 +84,11 @@ LIB_DIRS 	=
 AXX 		= ag++
 CXX			= g++
 WXX			= x86_64-w64-mingw32-g++ 
-CXX_FLAGS 	= 
+CXXFLAGS 	= -g -std=c++11 
 
-.PHONY: all target tests
+.PHONY: all tests
 
-all: target
-
-target: $(WEAVE) SETUP $(EXE) FINISH
+all: tests
 
 windows: $(WEAVE) SETUP $(WIN_EXE) FINISH
 
@@ -104,39 +99,8 @@ tests: $(WEAVE) TEST_SETUP $(TEST_EXE) TEST_FINISH
 #################################################################################
  
 $(WEAVE):
-	@echo Weavings the aspects . . . 
-	@echo ""	
-	$(AXX) $(CXX_FLAGS) --weave_only  $(COM_SOURCES) 			\
-		$(TGT_SOURCES) $(ASP_SOURCES) $(LIBS)
-	@echo ""
-	@echo Finished weaving the aspects!
-
-#################################################################################
-# 								MAIN EXE BUILDING								#
-#################################################################################
-
-SETUP:
-	@echo Moving temp files ...
-	@echo ""
-	@bash -c "mv main.acc main.cpp && mv main.cpp temp/"	
-	@bash -c "mv clContext.acc clContext.cpp && mv clContext.cpp temp/"
-	@bash -c "mv VectorAdd.acc VectorAdd.cpp && mv VectorAdd.cpp temp/"
-	@echo ""
-	@echo Finished moving the temp files!
-
-$(EXE): 
-	@echo Building the executable . . .
-	@echo ""
-	$(CXX) -o $(EXE) $(TMP_SOURCES) $(LIBS)
-	@echo ""
-	@echo Finished building the executable!
-
-FINISH:
-	@echo Cleaning the temporary files ...
-	@echo ""
-	@bash -c "rm -rf tmp/*"
-	@echo""
-	@echo Finished cleaning the temporary files!
+	@echo Weavings the aspects . . . 	
+	$(AXX)  --weave_only  $(COM_SOURCES) $(ASP_SOURCES) $(LIB_DIRS) $(LIBS)
 
 #################################################################################
 # 							   WINDOWS BUILDING								#
@@ -145,7 +109,8 @@ FINISH:
 $(WIN_EXE):
 	@echo Building for windows . . .
 	@echo ""
-	$(WXX) $(WIN_INCLUDES) -o $(WIN_EXE) $(TMP_SOURCES) $(LIBS)
+	$(WXX) $(WIN_INCLUDES) -o $(WIN_EXE) $(TMP_SOURCES) i\
+		 $(LIBS)
 	@echo ""
 	@echo Finished cleaning the temp files!
 
@@ -154,29 +119,23 @@ $(WIN_EXE):
 #################################################################################
 
 TEST_SETUP:
-	@echo Moving the temp files . . . 
-	@echo 	
-	@bash -c "mv clContext.acc clContext.cpp && mv clContext.cpp tests/"
-	@bash -c "mv VectorAdd.acc VectorAdd.cpp && mv VectorAdd.cpp tests/"
-	@bash -c "cp src/VectorAdd.h tests/VectorAdd.h"
-	@echo Finished moving the temp files!
+	echo Moving the temp files . . . 
+	echo 	
+	bash -c "mv clContext.acc clContext.cpp && mv clContext.cpp temp/"
+	bash -c "mv VectorAdd.acc VectorAdd.hpp && mv VectorAdd.hpp temp/"
+	bash -c "cp tests/tests.cpp temp/"
 
 $(TEST_EXE):
-	@echo Compiling the woven files into the test executable . . .
-	@echo
-	$(CXX) -o $(TEST_EXE) $(TST_SOURCES) $(LIBS)	\
-		$(TEST_LIBS) $(INCLUDES)
-	@echo
-	@echo Finished compiling woven files!
+	echo Compiling the woven files into the test executable . . .
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $(TEST_EXE) $(TMP_SOURCES) $(LIB_DIRS) \
+		$(LIBS)	$(TEST_LIBS) 
 
 TEST_FINISH:
-	@bash -c "rm -rf tests/clContext.cpp tests/VectorAdd.* main.acc"
+	bash -c "rm -rf tmp/*"
 
 #################################################################################
 # 								  CLEANING	     								#
 #################################################################################
 
 clean:
-	@echo Cleaning the project . . .
-	rm -rf $(EXE) $(TEST_EXE)
-	@echo Finished cleaning the project.
+	rm -rf $(TEST_EXE) temp/*
