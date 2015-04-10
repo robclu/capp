@@ -5,7 +5,7 @@
 #										  #		
 ###########################################
 
-WIN_EXE_NAME 	= WindowsTests
+WIN_EXE_NAME 	= WindowsTests.exe
 TEST_EXE_NAME 	= LinuxTests
 
 ###########################################
@@ -159,4 +159,4 @@ TEST_FINISH:
 #################################################################################
 
 clean:
-	rm -rf $(TEST_EXE) temp/*
+	rm -rf $(TEST_EXE) $(WIN_EXE) temp/*
