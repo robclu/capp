@@ -78,6 +78,8 @@ void clContext::clInstance::setupKernel(const string& kernelSource, const string
 
 void clContext::clInstance::manageClBuffers(vector< vector<T> > * inputs, vector< vector<T> > * outputs)
 {
+	buffers.clear();						// Make sure buffers are empty
+
 	// Create buffers from each of the input vectors 
 	for (size_t i = 0; i < inputs->size(); i++) {
 		buffers.push_back(cl::Buffer(context, CL_MEM_READ_ONLY, (*inputs)[i].size() * sizeof(T)));

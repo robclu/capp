@@ -5,8 +5,8 @@
 #										  #		
 ###########################################
 
-WIN_EXE_NAME 	= VectorAddWin
-TEST_EXE_NAME 	= TestsVectorAdd
+WIN_EXE_NAME 	= WindowsTests
+TEST_EXE_NAME 	= LinuxTests
 
 ###########################################
 # 			DIRECTORIES					  #
@@ -38,17 +38,22 @@ TEST_EXE 	= $(addprefix $(BUILD_DIR)/,$(TEST_EXE_NAME))
 
 COM_MODULES := VectorAdd.cpp 
 HED_MODULES := VectorAdd.h
+WIN_MODULES := wintests.cpp
 TST_MODULES := tests.cpp
 ASP_MODULES := clContext.cc
 TMP_MODULES := VectorAdd.hpp  \
 			   $(TST_MODULES) \
 			   $(ASP_MODULES:.cc=.cpp)
+WIN_TMP_MODULES := VectorAdd.hpp \
+				$(WIN_MODULES) 	 \
+				$(ASP_MODULES:.cc=.cpp)
 
 COM_SOURCES := $(addprefix $(SRC_DIR)/,$(COM_MODULES))
 COM_SOURCES += $(addprefix $(SRC_DIR)/,$(HED_MODULES))
 
 ASP_SOURCES := $(addprefix $(ASP_DIR)/,$(ASP_MODULES))
 TMP_SOURCES := $(addprefix $(TMP_DIR)/,$(TMP_MODULES))
+WIN_TMP_SOURCES := $(addprefix $(TMP_DIR)/,$(WIN_TMP_MODULES))
 
 ##########################################
 #				DIRECTORIES  			 #
@@ -61,6 +66,8 @@ TMP_SOURCES := $(addprefix $(TMP_DIR)/,$(TMP_MODULES))
 
 LIBS 		= -lOpenCL
 TEST_LIBS 	= -lgtest -lgtest_main -lpthread 
+WIN_LIBS 	= -static-libgcc -static-libstdc++ \
+			  -static -lwinpthread
 
 #########################################
 # 		INCLUDE DIRECTORIES				#
@@ -68,8 +75,7 @@ TEST_LIBS 	= -lgtest -lgtest_main -lpthread
 
 INCLUDES 		= -Isrc -I/usr/include/gtest \
 				  -I/usr/local/cuda-7.0/include
-WIN_INCLUDES 	= -I/usr/include -I/usr/local \
-				  -I/usr/share
+WIN_INCLUDES 	= 
 
 #########################################
 #		LIBRARY DIRECTORIES 			#
@@ -86,11 +92,11 @@ CXX			= g++
 WXX			= x86_64-w64-mingw32-g++ 
 CXXFLAGS 	= -g -std=c++11 
 
-.PHONY: all tests
+.PHONY: all tests windows
 
-all: tests
+all: tests 
 
-windows: $(WEAVE) SETUP $(WIN_EXE) FINISH
+windows: WIN_WEAVE $(WIN_EXE) FINISH
 
 tests: $(WEAVE) TEST_SETUP $(TEST_EXE) TEST_FINISH
 
@@ -102,17 +108,32 @@ $(WEAVE):
 	@echo Weavings the aspects . . . 	
 	$(AXX)  --weave_only  $(COM_SOURCES) $(ASP_SOURCES) $(LIB_DIRS) $(LIBS)
 
+
+
+
+WIN_WEAVE:
+	@echo Weavings the aspects . . . 	
+	sudo $(AXX)  --weave_only --c_compiler $(WXX)  $(COM_SOURCES) $(ASP_SOURCES)  
+
 #################################################################################
 # 							   WINDOWS BUILDING								#
 #################################################################################
 
 $(WIN_EXE):
+	echo Moving the temp files . . . 
+	echo 	
+	bash -c "mv clContext.acc clContext.cpp && mv clContext.cpp temp/"
+	bash -c "mv VectorAdd.acc VectorAdd.hpp && mv VectorAdd.hpp temp/"
+	bash -c "cp src/wintests.cpp temp/"
 	@echo Building for windows . . .
 	@echo ""
-	$(WXX) $(WIN_INCLUDES) -o $(WIN_EXE) $(TMP_SOURCES) i\
-		 $(LIBS)
+	sudo $(WXX) $(CXXFLAGS) $(WIN_INCLUDES) -o $(WIN_EXE) $(WIN_TMP_SOURCES) \
+		 $(LIBS) $(WIN_LIBS)
 	@echo ""
 	@echo Finished cleaning the temp files!
+
+FINISH:
+	rm -rf temp/*
 
 #################################################################################
 # 								TEST BUILDING									#

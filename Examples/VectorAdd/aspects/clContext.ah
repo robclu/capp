@@ -14,6 +14,11 @@
 
 #include <vector>
 
+// Windows 
+#if defined(__WIN64) || defined(__WIN32)
+	#include <windows.h>
+#endif
+
 // Make sure we are using version 1.1
 // otherwise NVIDIA GPU's wont work
 #ifdef __APPLE__
