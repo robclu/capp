@@ -12,8 +12,22 @@
 #include <iterator>
 #include <fstream>
 
+timespec diff(timespec start, timespec end)
+{
+	timespec temp;
+	if ( (end.tv_nsec - start.tv_nsec) < 0 ) {
+		temp.tv_nsec = 1000000000 + end.tv_nsec - start.tv_nsec;
+	} else {
+		temp.tv_nsec = end.tv_nsec - start.tv_nsec;
+	}
+	return temp;
+}
+
 void clContext::clInstance::setupOpenCL(const string& deviceType, const string& kernelSource) 
 {
+	// Start the timer 
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);
+	
 	// Get the available OpenCL platforms 
 	cl::Platform::get(&platforms);
 
@@ -105,16 +119,23 @@ void clContext::clInstance::manageClBuffers(vector< vector<T> > * inputs, vector
 	// Place the kernel on the command queue
 	queue.enqueueNDRangeKernel(kernel, cl::NullRange, global, local);
 
+//	cl::clFinish();
+
 	// Get the results back to the output vector
 	for (size_t i = 0; i < outputs->size(); i++) {
 		// Create a buffer for the results from the kernel
 		T * results = new T[(*outputs)[i].size()];
 
 		// Move the result from the device to the host
-		queue.enqueueReadBuffer(buffers[inputs->size() + i], CL_TRUE, 0, (*outputs)[i].size() * sizeof(T), results);
+		queue.enqueueReadBuffer(buffers[inputs->size() + i], CL_FALSE, 0, (*outputs)[i].size() * sizeof(T), results);
 
 		// Move the result from the temp buffer into the output vector
 		(*outputs)[i] = vector<T>(results, results + (*outputs)[i].size());
 		free(results);
 	}
+
+	// Stop the timer
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end);
+
+	cout << "Time in nanoseconds: " << diff(start, end).tv_nsec << endl;
 }

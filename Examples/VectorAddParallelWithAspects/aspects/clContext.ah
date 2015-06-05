@@ -13,6 +13,8 @@
 #define __CL_CONTEXT__ASPECT__
 
 #include <vector>
+#include <time.h>
+#include <iostream>
 
 // Windows 
 #if defined(__WIN64) || defined(__WIN32)
@@ -28,7 +30,6 @@
 	#undef   CL_VERSION_1_2
 #endif
 
-
 #define This	tjp->that()		// Pointer to context on which advice acts
 #define T		float			// Type of data the kernel will operate on
 
@@ -41,6 +42,9 @@ aspect clContext
 		// calls any necessary OpenCL functions 
 		class clInstance 
 		{
+			public: 
+				timespec start;					// Time point for start
+				timespec end;					// Time point for end
 			public:
 				// OpenCL context
 				cl::Context context;
@@ -92,7 +96,7 @@ aspect clContext
 		// Pointcut to manage opencl variables (mostly mem) when the kernel is
 		// executed
 		pointcut manageRunKernel() = execution("% ...::...::runKernel(...)") && 
-									 within(programs());
+									 within(programs()); 
 
 		// Insert the class clContext - all its variables and functions into the
 		// classes defined bu programs

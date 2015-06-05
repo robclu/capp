@@ -64,7 +64,7 @@ WIN_TMP_SOURCES := $(addprefix $(TMP_DIR)/,$(WIN_TMP_MODULES))
 #				LIBRARIES 				 #
 ##########################################
 
-LIBS 		= -lOpenCL
+LIBS 		= -lOpenCL -lrt
 TEST_LIBS 	= -lgtest -lgtest_main -lpthread 
 WIN_LIBS 	= -static-libgcc -static-libstdc++ \
 			  -static -lwinpthread
@@ -90,7 +90,7 @@ LIB_DIRS 	=
 AXX 		= ag++
 CXX			= g++
 WXX			= x86_64-w64-mingw32-g++ 
-CXXFLAGS 	= -g -std=c++11 
+CXXFLAGS 	= -O4 -std=c++11 
 
 .PHONY: all tests windows
 
@@ -106,10 +106,7 @@ tests: $(WEAVE) TEST_SETUP $(TEST_EXE) TEST_FINISH
  
 $(WEAVE):
 	@echo Weavings the aspects . . . 	
-	$(AXX)  --weave_only  $(COM_SOURCES) $(ASP_SOURCES) $(LIB_DIRS) $(LIBS)
-
-
-
+	$(AXX) --weave_only  $(COM_SOURCES) $(ASP_SOURCES) $(LIB_DIRS) $(LIBS)
 
 WIN_WEAVE:
 	@echo Weavings the aspects . . . 	

@@ -15,11 +15,11 @@
 using namespace std;
 
 // Kernel name must be the source file without the .cl
-string cpuDevice = "CPU";
+string cpuDevice = "GPU";
 string kSource   = "vectoradd.cl";
 string kName     = "vectoradd";
 
-#define VECTOR_SIZE 64 
+#define VECTOR_SIZE 2000000
 
 // Define a CPU fixture class
 class AspectTestCpu : public ::testing::Test
@@ -51,7 +51,7 @@ class AspectTestCpu : public ::testing::Test
 };
 
 /* --- --- -- -- CPU tests -- -- --- --- */
-
+/*
 TEST_F(AspectTestCpu, canReturnDeviceType)
 {
 	EXPECT_EQ(cpuDevice, vectadd->getDeviceType());
@@ -122,7 +122,7 @@ TEST(AspectTesTSetup, canSetClParametersCorrectly)
 	EXPECT_EQ(cpuDevice, vectadd.getDeviceType());
 	EXPECT_EQ(kName, vectadd.getKernelName());
 }
-
+*/
 // Shows full execution of the parallel class - instantiation 
 // running of the kernel, highlighting similarity between 
 // c++ programming
