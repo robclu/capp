@@ -30,7 +30,7 @@
 #include <iostream>
 
 #define T float				// Data type used for computation 
-#define N 2000000			// The size of the vectors for the addition
+#define N 512 * 8 * 4 * 4 * 4 * 4 * 4
 #define I 2					// The number of input vectors for addition 
 
 using namespace std;
@@ -55,7 +55,11 @@ void VectAddKernel(vector<vector<T>> &in,
 	// at the index in all the input vectors
 	for (size_t element = 0; element < out.size(); element++) {			// For each element
 		for (size_t input = 0; input < in.size(); input++)	{			// For each input
-			out[element] += in[input][element];
+			if (input == 0) {
+				out[element] += 4 * in[input][element];
+			} else {
+				out[element] += in[input][element];
+			}
 		}
 	}
 }

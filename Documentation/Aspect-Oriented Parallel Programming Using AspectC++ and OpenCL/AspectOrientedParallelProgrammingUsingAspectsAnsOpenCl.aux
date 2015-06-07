@@ -3,24 +3,52 @@
 \citation{opencl}
 \citation{cuda}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{\thepage }}
+\newlabel{sec:intro}{{1}{\thepage }}
 \citation{gregor:aop}
+\citation{breit:cupp}
+\citation{schmidt:actor}
+\citation{schmidt:actor1}
+\citation{microsoft:amp}
 \newlabel{fig:weaving}{{1}{\thepage }}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Process of weaving aspect and core code.}}{\thepage }}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{\thepage }}
 \newlabel{sec:related}{{2}{\thepage }}
-\@writefile{toc}{\contentsline {section}{\numberline {3}AspectC++ in Parallel Programming}{\thepage }}
+\citation{rapidmind}
+\citation{brook}
+\citation{jaspect}
+\@writefile{toc}{\contentsline {section}{\numberline {3}The APP Model}{\thepage }}
 \newlabel{sec:aspects}{{3}{\thepage }}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Abstract ClContext Aspect}{\thepage }}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}OpenCl Variable Introduction}{\thepage }}
+\newlabel{slice}{{1}{\thepage }}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}Abstract aspect which defined the OpenCL variables required for parallel programming}{\thepage }}
+\newlabel{dslice}{{2}{\thepage }}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}Derived aspect defining the core classes which need the OpenCL variables}{\thepage }}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}OpenCL Setup Function Introduction}{\thepage }}
+\newlabel{clsetup}{{3}{\thepage }}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}Abstract aspect with the pointcut and advice for OpenCL setup}{\thepage }}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}RunKernel Interface}{\thepage }}
+\newlabel{runkernel}{{4}{\thepage }}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}Abstract aspect components with hide kernel cross-cutting concerns}{\thepage }}
+\newlabel{crunkernel}{{5}{\thepage }}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5}C++ core class executing a pallel kernel using standard c++}{\thepage }}
+\citation{Lamport:LaTeX}
+\citation{Lamport:LaTeX}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Results}{\thepage }}
 \newlabel{sec:results}{{4}{\thepage }}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}SAXPY Problem}{\thepage }}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Evaluation and Limitations}{\thepage }}
 \newlabel{sec:evaluation}{{5}{\thepage }}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{\thepage }}
 \newlabel{sec:conclusion}{{6}{\thepage }}
 \@writefile{toc}{\contentsline {section}{\numberline {7}Future Work}{\thepage }}
 \newlabel{future}{{7}{\thepage }}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Comparison of the number of lines of code per file type for the SAXPY problem (Not including comments)}}{\thepage }}
+\newlabel{tab:saxpy}{{1}{\thepage }}
 \@writefile{toc}{\contentsline {section}{\numberline {8}The {\secit Body} of The Paper}{\thepage }}
-\citation{Lamport:LaTeX}
-\citation{Lamport:LaTeX}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Type Changes and {\subsecit Special} Characters}{\thepage }}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Math Equations}{\thepage }}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.2.1}Inline (In-text) Equations}{\thepage }}
 \citation{bowman:reasoning}
 \citation{clark:pct}
 \citation{braams:babel}
@@ -30,31 +58,33 @@
 \citation{Lamport:LaTeX}
 \citation{Lamport:LaTeX}
 \citation{Lamport:LaTeX}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Type Changes and {\subsecit Special} Characters}{\thepage }}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Math Equations}{\thepage }}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.2.1}Inline (In-text) Equations}{\thepage }}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {8.2.2}Display Equations}{\thepage }}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Frequency of Special Characters}}{\thepage }}
 \@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Citations}{\thepage }}
 \@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Tables}{\thepage }}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Frequency of Special Characters}}{\thepage }}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces A sample black and white graphic.}}{\thepage }}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.5}Figures}{\thepage }}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.6}Theorem-like Constructs}{\thepage }}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces A sample black and white graphic that has been resized with the \texttt  {includegraphics} command.}}{\thepage }}
 \citation{salas:calculus}
 \bibstyle{abbrv}
 \bibdata{sigproc}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces A sample black and white graphic.}}{\thepage }}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces A sample black and white graphic that has been resized with the \texttt  {includegraphics} command.}}{\thepage }}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.5}Figures}{\thepage }}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.6}Theorem-like Constructs}{\thepage }}
+\bibcite{breit:cupp}{1}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Some Typical Commands}}{\thepage }}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces A sample black and white graphic that needs to span two columns of text.}}{\thepage }}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces A sample black and white graphic that has been resized with the \texttt  {includegraphics} command.}}{\thepage }}
 \@writefile{toc}{\contentsline {section}{\numberline {9}Conclusions}{\thepage }}
 \@writefile{toc}{\contentsline {section}{\numberline {10}Acknowledgments}{\thepage }}
-\bibcite{clark:pct}{1}
-\bibcite{opencl}{2}
-\bibcite{gregor:aop}{3}
-\bibcite{kumar:power}{4}
-\bibcite{Lamport:LaTeX}{5}
-\bibcite{cuda}{6}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Some Typical Commands}}{\thepage }}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces A sample black and white graphic that needs to span two columns of text.}}{\thepage }}
+\bibcite{brook}{2}
+\bibcite{schmidt:actor1}{3}
+\bibcite{schmidt:actor}{4}
+\bibcite{opencl}{5}
+\bibcite{gregor:aop}{6}
+\bibcite{kumar:power}{7}
+\bibcite{microsoft:amp}{8}
+\bibcite{cuda}{9}
+\bibcite{rapidmind}{10}
+\bibcite{jaspect}{11}
 \@writefile{toc}{\contentsline {section}{\numberline {11}References}{\thepage }}
 \@writefile{toc}{\contentsline {section}{\numberline {A}Headings in Appendices}{\thepage }}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Introduction}{\thepage }}

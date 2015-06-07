@@ -12,6 +12,7 @@
 #include <iterator>
 #include <fstream>
 
+#define LOCAL_SIZE 512
 timespec diff(timespec start, timespec end)
 {
 	timespec temp;
@@ -113,13 +114,11 @@ void clContext::clInstance::manageClBuffers(vector< vector<T> > * inputs, vector
 	}
 
 	// This should be set by the derived aspect or the implemented class
-	cl::NDRange global((*inputs)[0].size());		// Number of elements to process
-	cl::NDRange local(1);							
+	cl::NDRange global((*inputs)[0].size(), 1, 1);		// Number of elements to process
+	cl::NDRange local(LOCAL_SIZE, 1, 1);							
 
 	// Place the kernel on the command queue
 	queue.enqueueNDRangeKernel(kernel, cl::NullRange, global, local);
-
-//	cl::clFinish();
 
 	// Get the results back to the output vector
 	for (size_t i = 0; i < outputs->size(); i++) {

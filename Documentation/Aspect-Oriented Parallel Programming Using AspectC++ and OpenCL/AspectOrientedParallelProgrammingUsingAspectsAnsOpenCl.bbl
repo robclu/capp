@@ -1,10 +1,29 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
-\bibitem{clark:pct}
-M.~Clark.
-\newblock Post congress tristesse.
-\newblock In {\em TeX90 Conference Proceedings}, pages 84--89. TeX Users Group,
-  March 1991.
+\bibitem{breit:cupp}
+J.~Breitbart.
+\newblock Cu{PP} - {A} framework for easy {CUDA} integration.
+\newblock {\em Parallel and {D}istributed {P}rogramming}, IPDPS:1--8, May 2009.
+
+\bibitem{brook}
+I.~Buck, T.~Foley, D.~Horn, J.~Sugerman, K.~Fatahalian, M.~Houston, and
+  P.~Hanrahan.
+\newblock Brook for {GPU}s: {S}tream {C}omputing on {G}raphics {H}ardware.
+\newblock {\em ACM Transactions on Graphics}, 23:777--786, 2004.
+
+\bibitem{schmidt:actor1}
+D.~Charousset, T.~C. Schmidt, and R.~Hiesgen.
+\newblock {CAF}\_{C}++ {A}ctor {F}ramework : {A}n {O}pen {S}ource
+  {I}mplementation of the {A}ctor {M}odel in {C}++.
+\newblock Available at \url{http://www.actor-framework.org/#about} [Accessed 7
+  May 2015].
+
+\bibitem{schmidt:actor}
+D.~Charousset, T.~C. Schmidt, and R.~Hiesgen.
+\newblock {CAF} - {T}he {C}++ {A}ctor {F}ramework for {S}calable and
+  {R}esource-efficient {A}pplications.
+\newblock In {\em Proc. of the 5th ACM SIGPLAN Conf. on Systems Programming and
+  Applications (SPLASH '14) Workshop AGERE!} ACM, October 2014.
 
 \bibitem{opencl}
 Khronos Group.
@@ -16,23 +35,40 @@ Khronos Group.
 G.~Kiczales, J.~Lamping, A.~Mendhekar, C.~Maeda, C.~Lopes, J.-M. Loingtier, and
   J.~Irwin.
 \newblock Aspect-oriented programming.
-\newblock {\em European Conference on Object-Oriented Programming},
-  Springer-Verlag LNCS(1241):220--242, June 1997.
+\newblock In {\em European Conference on Object-Oriented Programming}, pages
+  220--242. Springer-Verlag, June 1997.
 
 \bibitem{kumar:power}
 R.~Kumar, K.~Farkar, N.~Jouppi, P.~Ranganathan, and D.~Tullsen.
 \newblock Single-{ISA} hetrogeneous multi-core architectures: the potential for
   processor power reduction.
-\newblock {\em Annual IEEE/ACM International Symposium}, MICRO-36:81--92, 2003.
+\newblock In {\em Proc. of the 36th International Symposium on
+  Microarchitecture}, pages 81--92. IEEE/ACM, Dec. 2003.
 
-\bibitem{Lamport:LaTeX}
-L.~Lamport.
-\newblock {\em LaTeX User's Guide and Document Reference Manual}.
-\newblock Addison-Wesley Publishing Company, Reading, Massachusetts, 1986.
+\bibitem{microsoft:amp}
+Microsoft.
+\newblock C++ {AMP} ({C}++ {A}ccelerated {M}assive {P}arallelism).
+\newblock Available at
+  \url{https://msdn.microsoft.com/en-us/library/hh265136.aspx} [Accessed 7 May
+  2015].
 
 \bibitem{cuda}
 Nvidia.
 \newblock {\em CUDA RUNTIME API}, March. 2015.
 \newblock \url{http://docs.nvidia.com/cuda/index.html#axzz3cGMEdjIx}.
+
+\bibitem{rapidmind}
+RapidMind Inc.
+\newblock {\em {W}riting {A}pplications for the {GPU} {U}sing the {R}apid{M}ind
+  {D}evelopment {P}latform}, 2006.
+\newblock
+  \url{http://www.cs.ucla.edu/~palsberg/course/cs239/papers/rapidmind.pdf}.
+
+\bibitem{jaspect}
+J.~L. Sobral, M.~P. Monteiro, and C.~A. Cunha.
+\newblock Aspect-oriented support for modular parallel computing.
+\newblock In {\em High Performance Computing for Computational Science - VECPAR
+  2006}, volume LNCS 4395, pages 93--106. Springer-Verlag Berlin Heidelberg,
+  2007.
 
 \end{thebibliography}

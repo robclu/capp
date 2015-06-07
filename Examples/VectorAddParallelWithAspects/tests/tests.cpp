@@ -19,7 +19,7 @@ string cpuDevice = "GPU";
 string kSource   = "vectoradd.cl";
 string kName     = "vectoradd";
 
-#define VECTOR_SIZE 2000000
+#define VECTOR_SIZE 512 * 8 * 4 * 4 * 4 * 4 * 4 * 2
 
 // Define a CPU fixture class
 class AspectTestCpu : public ::testing::Test
@@ -123,14 +123,12 @@ TEST(AspectTesTSetup, canSetClParametersCorrectly)
 	EXPECT_EQ(kName, vectadd.getKernelName());
 }
 */
+#define CONSTANT 4
 // Shows full execution of the parallel class - instantiation 
 // running of the kernel, highlighting similarity between 
 // c++ programming
 TEST(AspectTestFull, canPerformVectorAdditionCU)
 {
-	// Create vector addition object
-	VectorAddParallel  vectadd(cpuDevice, kSource, kName);
-
 	vector< vector<T> > input;
 	vector< vector<T> > output;
 
@@ -148,11 +146,14 @@ TEST(AspectTestFull, canPerformVectorAdditionCU)
 	input.push_back(B);
 	output.push_back(C);
 
+	// Create vector addition object
+	VectorAddParallel  vectadd(cpuDevice, kSource, kName);
+
 	// Run kernel (one function call once data is ready)
 	vectadd.runKernel(input, output);
 
 	for (int i = 0; i < VECTOR_SIZE; i++) {
-		EXPECT_EQ(2*i, output[0][i]);
+		EXPECT_EQ(4 * i + i, output[0][i]);
 	}
 }
 

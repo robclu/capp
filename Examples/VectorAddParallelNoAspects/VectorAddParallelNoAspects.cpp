@@ -40,7 +40,7 @@
 #endif
 
 #define T float
-#define N 2000000
+#define N 512 * 8 * 4*4*4*4
 #define I 2
 
 using namespace std;
@@ -151,8 +151,8 @@ int main(int argc, char** argv) {
 		kernel.setArg(i, buffers[i]);
 	}
 
-	cl::NDRange global(in[0].size());
-	cl::NDRange local(1);
+	cl::NDRange global(in[0].size(), 1, 1);
+	cl::NDRange local(512, 1, 1);
 
 	// ------------ Run Kernel --------------- //
 	
