@@ -1,0 +1,38 @@
+\begin{thebibliography}{1}
+
+\bibitem{clark:pct}
+M.~Clark.
+\newblock Post congress tristesse.
+\newblock In {\em TeX90 Conference Proceedings}, pages 84--89. TeX Users Group,
+  March 1991.
+
+\bibitem{opencl}
+Khronos Group.
+\newblock {\em OpenCL 1.0 Specification}, Dec. 2008.
+\newblock Rev. 29.
+  \url{https://www.khronos.org/registry/cl/specs/opencl-1.0.29.pdf}.
+
+\bibitem{gregor:aop}
+G.~Kiczales, J.~Lamping, A.~Mendhekar, C.~Maeda, C.~Lopes, J.-M. Loingtier, and
+  J.~Irwin.
+\newblock Aspect-oriented programming.
+\newblock {\em European Conference on Object-Oriented Programming},
+  Springer-Verlag LNCS(1241):220--242, June 1997.
+
+\bibitem{kumar:power}
+R.~Kumar, K.~Farkar, N.~Jouppi, P.~Ranganathan, and D.~Tullsen.
+\newblock Single-{ISA} hetrogeneous multi-core architectures: the potential for
+  processor power reduction.
+\newblock {\em Annual IEEE/ACM International Symposium}, MICRO-36:81--92, 2003.
+
+\bibitem{Lamport:LaTeX}
+L.~Lamport.
+\newblock {\em LaTeX User's Guide and Document Reference Manual}.
+\newblock Addison-Wesley Publishing Company, Reading, Massachusetts, 1986.
+
+\bibitem{cuda}
+Nvidia.
+\newblock {\em CUDA RUNTIME API}, March. 2015.
+\newblock \url{http://docs.nvidia.com/cuda/index.html#axzz3cGMEdjIx}.
+
+\end{thebibliography}
