@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.16)  8 JUN 2015 00:42
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.16)  8 JUN 2015 23:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -218,6 +218,27 @@ LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
 (/usr/share/texlive/texmf-dist/tex/latex/ae/t1aer.fd
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 )))
+(/usr/share/texmf/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Package option `usenames' ignored on input line 216.
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
 \lst@mode=\count111
 \lst@gtempboxa=\box30
@@ -363,45 +384,17 @@ File: omsaer.fd 1999/12/27
 LaTeX Font Info:    Font shape `OMS/aer/m/n' in size <9> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 215.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+LaTeX Warning: Citation `cudaseq' on page \thepage  undefined on input line 255
+.
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
-Overfull \hbox (3.37315pt too wide) in paragraph at lines 313--316
-\T1/aer/m/n/9 aspect im-ple-men-ta-tion writ-ten us-ing OpenCL or CUDA 
- []
 
-
-LaTeX Warning: Reference `sec:future' on page \thepage  undefined on input line
- 349.
-
-[2]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-LaTeX Warning: Reference `list:vectcl' on page \thepage  undefined on input lin
-e 452.
-
-
-LaTeX Warning: Reference `sec:kinterface' on page \thepage  undefined on input 
-line 465.
-
-
-Overfull \hbox (3.70374pt too wide) in paragraph at lines 456--466
-\T1/aer/m/it/9 ClCon-text \T1/aer/m/n/9 as-pect, which pro-vides OpenCL com-po-
-nents which
- []
-
-
-LaTeX Warning: Reference `list:vectcl' on page \thepage  undefined on input lin
-e 469.
-
-
-LaTeX Warning: Reference `list:cppcl' on page \thepage  undefined on input line
- 473.
+LaTeX Warning: Reference `vectcpp' on page \thepage  undefined on input line 27
+8.
 
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2013/08/26 1.5b listings language file
@@ -411,111 +404,145 @@ File: lstlang1.sty 2013/08/26 1.5b listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
-) [3]
-
-LaTeX Warning: Reference `vectcl' on page \thepage  undefined on input line 528
-.
-
-
-LaTeX Warning: Reference `vectcl' on page \thepage  undefined on input line 578
-.
-
-
-LaTeX Warning: Reference `cpprunkernel' on page \thepage  undefined on input li
-ne 603.
-
+)
 LaTeX Font Info:    Font shape `OMS/aer/m/n' in size <7> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 617.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 293.
+
+
+LaTeX Warning: Citation `acpp' on page \thepage  undefined on input line 330.
+
+
+Overfull \hbox (3.37315pt too wide) in paragraph at lines 359--362
+\T1/aer/m/n/9 aspect im-ple-men-ta-tion writ-ten us-ing OpenCL or CUDA 
+ []
+
+
+LaTeX Warning: Reference `sec:future' on page \thepage  undefined on input line
+ 453.
+
+[2]
+
+LaTeX Warning: Text page \thepage  contains only floats.
+
+
+Overfull \vbox (2.54594pt too high) has occurred while \output is active []
+
+
+Overfull \hbox (1.76967pt too wide) in paragraph at lines 499--509
+\T1/aer/m/n/9 ming, pro-vides the pro-gram-mer with three data types: \T1/aer/m
+/it/9 Value\T1/aer/m/n/9 ,
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [3]
+
+LaTeX Warning: Citation `aopstream' on page \thepage  undefined on input line 5
+34.
+
+
+LaTeX Warning: Reference `vectcpp' on page \thepage  undefined on input line 59
+9.
+
 [4]
 
-LaTeX Warning: Reference `fig:saxpy' on page \thepage  undefined on input line 
-663.
+LaTeX Warning: Reference `crunkernl' on page \thepage  undefined on input line 
+751.
 
-LaTeX Font Info:    Try loading font information for T1+aett on input line 707.
+[5]
+
+LaTeX Warning: Reference `fig:saxpy' on page \thepage  undefined on input line 
+828.
+
+LaTeX Font Info:    Try loading font information for T1+aett on input line 872.
 
 (/usr/share/texlive/texmf-dist/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 )
-Underfull \hbox (badness 1360) in paragraph at lines 707--707
+Underfull \hbox (badness 1360) in paragraph at lines 872--872
 [][]\T1/aer/m/n/9 Two of these, the \T1/aett/m/n/9 \num-bero-fau-thors \T1/aer/
 m/n/9 and \T1/aett/m/n/9 \alig-nau-
  []
 
+[6]
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 763.
+ne 928.
 
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 778.
+ne 943.
 
-[5]
 
 LaTeX Warning: Citation `bowman:reasoning' on page \thepage  undefined on input
- line 805.
+ line 970.
 
 
-LaTeX Warning: Citation `clark:pct' on page \thepage  undefined on input line 8
-05.
+LaTeX Warning: Citation `clark:pct' on page \thepage  undefined on input line 9
+70.
 
 
 LaTeX Warning: Citation `braams:babel' on page \thepage  undefined on input lin
-e 805.
+e 970.
 
 
 LaTeX Warning: Citation `herlihy:methodology' on page \thepage  undefined on in
-put line 805.
+put line 970.
 
 
-LaTeX Warning: Citation `clark:pct' on page \thepage  undefined on input line 8
-06.
+LaTeX Warning: Citation `clark:pct' on page \thepage  undefined on input line 9
+71.
 
 
 LaTeX Warning: Citation `salas:calculus' on page \thepage  undefined on input l
-ine 807.
+ine 972.
 
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 807.
+ne 972.
 
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 813.
+ne 978.
 
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 824.
+ne 989.
 
-<fly.pdf, id=38, 34.1275pt x 32.12pt>
+
+LaTeX Warning: Reference `fig:weaving' on page \thepage  undefined on input lin
+e 1063.
+
+<fly.pdf, id=41, 34.1275pt x 32.12pt>
 File: fly.pdf Graphic file (type pdf)
  <use fly.pdf>
-Package pdftex.def Info: fly.pdf used on input line 901.
+Package pdftex.def Info: fly.pdf used on input line 1066.
 (pdftex.def)             Requested size: 34.1274pt x 32.1199pt.
 File: fly.pdf Graphic file (type pdf)
  <use fly.pdf>
-Package pdftex.def Info: fly.pdf used on input line 907.
+Package pdftex.def Info: fly.pdf used on input line 1072.
 (pdftex.def)             Requested size: 72.27492pt x 72.27565pt.
 
 
 LaTeX Font Warning: Font shape `T1/aett/bx/n' undefined
-(Font)              using `T1/aett/m/n' instead on input line 909.
+(Font)              using `T1/aett/m/n' instead on input line 1074.
 
-<flies.pdf, id=39, 307.1475pt x 114.4275pt>
+[7] <flies.pdf, id=48, 307.1475pt x 114.4275pt>
 File: flies.pdf Graphic file (type pdf)
  <use flies.pdf>
-Package pdftex.def Info: flies.pdf used on input line 922.
+Package pdftex.def Info: flies.pdf used on input line 1087.
 (pdftex.def)             Requested size: 307.14674pt x 114.42722pt.
 
-<rosette.pdf, id=40, 364.59212pt x 364.59212pt>
+<rosette.pdf, id=49, 364.59212pt x 364.59212pt>
 File: rosette.pdf Graphic file (type pdf)
  <use rosette.pdf>
-Package pdftex.def Info: rosette.pdf used on input line 930.
+Package pdftex.def Info: rosette.pdf used on input line 1095.
 (pdftex.def)             Requested size: 72.26622pt x 72.26622pt.
- [6 <./fly.pdf>]
 \c@theorem=\count126
 \c@definition=\count127
 
-Overfull \hbox (15.60826pt too wide) detected at line 986
+Overfull \hbox (15.60826pt too wide) detected at line 1151
 \OML/cmm/m/it/9 l \OT1/cmr/m/n/9 = [] \OML/cmm/m/it/9 f\OT1/cmr/m/n/9 (\OML/cmm
 /m/it/9 x\OT1/cmr/m/n/9 ) = [] [] = [] \OML/cmm/m/it/9 g\OT1/cmr/m/n/9 (\OML/cm
 m/m/it/9 x\OT1/cmr/m/n/9 ) \OMS/cmsy/m/n/9 ^^A [] [] \OT1/cmr/m/n/9 = 0 \OMS/cm
@@ -524,11 +551,15 @@ sy/m/n/9 ^^A \OML/cmm/m/it/9 L \OT1/cmr/m/n/9 = 0\OML/cmm/m/it/9 ;
 
 
 LaTeX Warning: Citation `salas:calculus' on page \thepage  undefined on input l
-ine 996.
+ine 1161.
 
-(./AspectOrientedParallelProgrammingUsingAspectsAnsOpenCl.bbl [7 <./flies.pdf> 
-<./rosette.pdf>]) [8]
-(./AspectOrientedParallelProgrammingUsingAspectsAnsOpenCl.aux)
+(./AspectOrientedParallelProgrammingUsingAspectsAnsOpenCl.bbl [8 <./fly.pdf> <.
+/rosette.pdf>])
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9 <./flies.pdf>] [10
+
+] (./AspectOrientedParallelProgrammingUsingAspectsAnsOpenCl.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -537,13 +568,13 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4822 strings out of 495028
- 64377 string characters out of 6181497
- 262610 words of memory out of 5000000
- 7873 multiletter control sequences out of 15000+600000
+ 5459 strings out of 495028
+ 72175 string characters out of 6181497
+ 408793 words of memory out of 5000000
+ 8500 multiletter control sequences out of 15000+600000
  75887 words of font info for 112 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 48i,10n,97p,323b,1626s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 48i,11n,97p,323b,1197s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texlive/texmf-dist/f
@@ -566,11 +597,11 @@ c/amsfonts/cm/cmtt9.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic
 live/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
 rw/times/utmri8a.pfb>
-Output written on AspectOrientedParallelProgrammingUsingAspectsAnsOpenCl.pdf (8
- pages, 324968 bytes).
+Output written on AspectOrientedParallelProgrammingUsingAspectsAnsOpenCl.pdf (1
+0 pages, 344219 bytes).
 PDF statistics:
- 134 PDF objects out of 1000 (max. 8388607)
- 96 compressed objects within 1 object stream
+ 140 PDF objects out of 1000 (max. 8388607)
+ 100 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

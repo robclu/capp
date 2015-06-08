@@ -3,6 +3,9 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: AspectOrientedParallelProgrammingUsingAspectsAnsOpenCl.aux
 The style file: abbrv.bst
 Database file #1: sigproc.bib
+Warning--I didn't find a database entry for "cudaseq"
+Warning--I didn't find a database entry for "acpp"
+Warning--I didn't find a database entry for "aopstream"
 Warning--I didn't find a database entry for "Lamport:LaTeX"
 Warning--I didn't find a database entry for "bowman:reasoning"
 Warning--I didn't find a database entry for "clark:pct"
@@ -11,7 +14,7 @@ Warning--I didn't find a database entry for "herlihy:methodology"
 Warning--I didn't find a database entry for "salas:calculus"
 You've used 11 entries,
             2118 wiz_defined-function locations,
-            572 strings with 6066 characters,
+            575 strings with 6086 characters,
 and the built_in function-call counts, 3605 in all, are:
 = -- 351
 > -- 175
@@ -50,4 +53,4 @@ warning$ -- 0
 while$ -- 24
 width$ -- 13
 write$ -- 120
-(There were 6 warnings)
+(There were 9 warnings)
