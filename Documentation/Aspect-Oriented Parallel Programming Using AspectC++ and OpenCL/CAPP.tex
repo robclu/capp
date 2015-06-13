@@ -791,7 +791,7 @@ appropriately managed between the \textit{host} and \textit{device}.
 Listing~\ref{runkernel} shows the \textit{ManageKernel} pointcut and advice,
 which calls the \textit{ManageBuffers} function in the \textit{ClInstance}
 class, to perform the cross-cutting memory management between the \textit{host} and
-\textit{device} each time the \texit{RunKernel} function is called from the C++
+\textit{device} each time the \textit{RunKernel} function is called from the C++
 class.
 
 \begin{lstlisting}[caption=Abstract aspect components which hide kernel
@@ -850,33 +850,34 @@ int VectAddCpp(int argc, char** argv) {
 \section{Results}\label{sec:results}
 
 This section presents the results of application of the \textit{CAPP} model to two
-GPGPU programming problems. The first problem is the SAXPY
-(Single-precision a*X + Y) problem \cite{harris:saxpy}, and is relatively 
-simple to implement on a GPU. The
-second is the computation of options prices using the Black-Scholes pricing
-model \cite{gems:blackscholes} and
-is more complex than the SAXPY problem hence applies the \textit{CAPP} model 
-to more `tangled' core code. The result are analysed in terms of both performance 
-and code complexity by comparing the of the number of lines of the different
-implementations.
+GPGPU programming problems. The first problem is known as SAXPY
+(Single-precision a*X + Y) \cite{harris:saxpy}, and is relatively 
+simple to implement in parallel. The second problem is the evaluation of option 
+prices using the Black-Scholes option pricing model \cite{gems:blackscholes},
+which is more complex than the SAXPY problem, and hence applies the \textit{CAPP} model 
+to more `tangled' C++ code. Results are given for both the performance and
+number of lines of code for the \textit{CAPP}, C++ (CPU only), and OpenCL
+implementations to demonstrate both the performance capabilities and the code
+simplification a \textit{CAPP} implementation can provide. 
 
 \subsection{SAXPY Problem}
 
 Various vector sizes were used and the runtime of each of the implementations
 was measured to validate that the solution using the
 \textit{CAPP} model scales similarly to the OpenCL implementation. Figure~\ref{fig:saxpy} 
-shows the results for each implementations. Transferring
+shows the results for the runtime of each implementation. Transferring
 the data between the CPU and the GPU is a large overhead for the SAXPY problem
 \cite{gregg:saxpy}. This is evident by the offset of the
 OpenCL and CAPP results for small vector sizes. Since the CPU implementation
 doesn't require data transfer to an external device the offset is not present.
-The rate of increase of the height of the bars for the CAPP and OpenCL solutions
-are similar, with the CAPP implementation scaling slightly worse than the pure
-OpenCL implementation. Both the OpenCl and CAPP implementation bars increase in
-height far less severely than the CPU implementation and hence provide much
-efficient computation for very large datasets. For some vector size the
-\textit{CAPP} implementation outperformed the OpenCL implementation, while the
-worst case performance was 27\% slower, and the average slowdown was 7\%;
+The gradient of each of the results provides important information as it shows
+how each of the implementations scale with an increase in the data size. 
+The gradient of the CAPP (0.61) and OpenCL (0.48) solutions are comparable, with
+the \textit{CAPP} solution scaling slightly worse. The gradient of the C++
+implementation (1.19) is considerably worse and does not scale particularly
+well. The average performance of the \textit{CAPP} implementation was 7\% slower
+than the OpenCL implementation which the worst case performance being 21\%
+slower.
 
 \begin{figure}[!t]
 	\centering
@@ -886,11 +887,11 @@ worst case performance was 27\% slower, and the average slowdown was 7\%;
 	\label{fig:saxpy}
 \end{figure}
 
-The second performance metric for the \textit{CAPP} model is the number of lines
-of code relative to the OpenCL and C++ implementations. The results are shown in 
-Table~\ref{tab:saxpy}. The main files are the C++ (.h, .cpp) files as these are
-what the programmer will need to write, while the aspect files (.ah, .cc) are
-provided by the \text{CAPP} model. 
+The second performance metric is the number of lines
+of code of each implementation. The results are shown in 
+Table~\ref{tab:saxpy}. The important files are the C++ (.h, .cpp) and kernel (.cl)
+files as these are what the programmer will need to write. The aspect files (.ah, .cc) are
+part of the \text{CAPP} model and do not need to be re-implemented by the programmer. 
 
 \begin{table}[!b]
 \centering
@@ -912,16 +913,16 @@ problem }
 
 \subsection{Black-Scholes Option Pricing Problem}
 
-The Black-Scholes problem performs the evaluation of options using the
-Black-Scholes model for options pricing and is a good example of the real-world
-application of the \textit{CAPP} model. The number of options was varied and the
-execution time was measured for the \textit{CAPP}, OpenCL and CPU implementations.
-The results are shown in Figure~\ref{fig:blackscholes}. This example illustrates
-the benefit of using the \textit{CAPP} model in terms of performance. The APP
-implementation was again more efficient than the OpenCL implementation for some
-runs. On average the \textit{CAPP} implementation was 1.4\% slower than the
-OpenCL implementation. The CPU implementation was on average 4 times slower than
-the \textit{CAPP} and OpenCL implementations. 
+This problem requires evaluating option prices using the Black-Scholes 
+model for options pricing and is a good example of an application of the \textit{CAPP} 
+model to a real world problem. The number of options was varied and the
+runtime was measured for the each implementation, the results are shown in 
+Figure~\ref{fig:blackscholes}. 
+This example illustrates level of performance the \textit{CAPP} model can
+provide. The \textit{CAPP} and OpenCL runtimes are very similar. The average 
+performance of the \textit{CAPP} implementation was 1.4\% slower than the
+OpenCL implementation, while the C++ implementation was up to 9 times slower
+than both the \textit{CAPP} and OpenCL implementations.
 
 \begin{figure}[!t]
 	\centering
@@ -935,33 +936,6 @@ the \textit{CAPP} and OpenCL implementations.
 The comparison of the number of lines of code for each of the implementations is
 shown in Table~\ref{tab:blackscholes}. The file types of interest are the same as 
 those mentioned in the SAXPY example. 
-
-\section{Evaluation and Limitations}\label{sec:evaluation}
-
-The results presented in the Section~\ref{sec:results} showed that the
-performance of the \textit{CAPP} model is similar to the of the OpenCL
-implementation, proving it's viability as an alternative approach for parallel
-programming. Furthermore, the number of lines of code comparison showed that the
-\textit{CAPP} implementation dramatically reduced the number of lines of code
-when compared to the OpenCL implementation and was more comparable with the C++
-implementation. Based on these results, the \textit{CAPP} model provides a
-parallel programming interface which is similar to C++ in terms of
-implementation complexity yet provides the performance of a parallel OpenCL
-implementation.
-
-\subsection{Limitations}
-
-Due to the weaving process happening before compilation, it was expected that
-the \textit{CAPP} implementation would provide performance equal to that of the
-OpenCL implementation, however, the results slowed a marginal slowdown. This is
-due to the limitations of using the aspect compiler. Since AspectC++ is still in
-the development process it does not support all the features of C++, templates
-are an example. This places a limitation on the C++ code the programmer may
-write if they are using the \textit{CAPP} model. From the results it is seen that
-the when using the AspectC++ weaver the woven code is not as fast as unwoven,
-tangles code. However, this minimal decrease in performance is offset by the
-modularity the aspects provide and this problem should be improved with newer
-version of AspectC++.
 
 \begin{table}[!b]
 \centering
@@ -981,55 +955,120 @@ Black-Scholes option pricing problem }
 \end{tabular}
 \end{table}
 
+
+\section{Evaluation and Limitations}\label{sec:evaluation}
+
+\subsection{Analysis of Results}
+
+The results presented in the Section~\ref{sec:results} show the similarity in
+the performance of a \textit{CAPP} implementation and an OpenCL implementation, as
+well as the performance advantage over a C++, CPU only implementation. The
+similarity of the \textit{CAPP} and OpenCL performance proves the viability of
+using the \textit{CAPP} model for parallel programming. The number of lines of 
+code comparison provided further justification for using a \textit{CAPP}
+implementation as the number of lines of C++ code were dramatically reduced.
+Furthermore, the resultant C++ code is modular and hence easily maintainable, 
+which is typically not the case for OpenCL code. Therefore,
+the \textit{CAPP} implementation code was more comparable to the C++ code,
+both structurally and in length. The \textit{CAPP} model thus provides
+performance comparable to an OpenCL implementation but written in modular C++.
+
+\subsection{Advantages}
+
+The \textit{CAPP} model provides numerous advantages which should be mentioned.
+
+While the OpenCL functionality is hidden from the programmer by the aspects,
+this code is still available to the programmer if desired. This is could be
+beneficial in many scenarios, for example where a team is using the
+\textit{CAPP} model GPU experts could modify the implementation provided by the
+\textit{CAPP} model to improve performance but non-GPU experts could still use
+the C++ interface.  
+
+The use of AspectC++ results in the \textit{CAPP} model being capable of
+providing general Aspect-Oriented Programming. The benefit of this is that
+large-scale applications could use standard AspectC++ to modularize other
+cross-cutting concerns from the application, logging for example, and using the
+\textit{CAPP} functionality to improve the performance of critical areas of the
+application using standard C++.
+
+The \textit{CAPP} code which performs all the OpenCL components is reliable.
+A developer would not have to debug the OpenCl setup and memory management code
+when testing a parallel algorithm. Furthermore, the C++ code is simple. These
+features results in a much faster parallel programming development cycle and
+isolate potential sources of error to the kernel function provided by the
+programmer.
+
+\subsection{Limitations}
+
+Due to the weaving process occurring before compilation, it was expected that
+the \textit{CAPP} implementation would provide performance equal to that of the
+OpenCL implementation. However, the results showed a marginal performance
+reduction. This was determined to be due to AspectC++ weaver producing code
+which compiles to a slightly less efficient executable. 
+
+Since AspectC++ is still in the development process it does not support all 
+the features of C++, for example generic programming through templates. 
+This places a limitation on the C++ code  the programmer may write if they 
+are using the \textit{CAPP} model. The development of the AspectC++ compiler 
+is therefore a limitation of the \textit{CAPP} model as the latest C++ 
+features will not be available. However, future releases of the AspectC++
+compiler are scheduled to include support for many more modern C++ features.
+
 \section{Conclusion}\label{sec:conclusion}
 
-This paper described the \textit{CAPP} model which using aspects to remove
-cross-cutting code from the C++ core code to allow a simpler, more modular
-solution for parallel programming. The aspects were implemented using AspectC++
+This paper described the \textit{CAPP} model which uses aspects to remove
+cross-cutting code from the C++ code, thereby providing simpler, more modular
+parallel capable C++ code. The aspects were implemented using AspectC++,
 and the parallel functionality was implemented using OpenCL. The cross-cutting 
-components which were dealt with by the aspect were the setup of the OpenCL
-context and compiling the kernel, transfer of memory between the host and device
-for kernel execution, and the kernel execution itself. The aspect used by the
-\textit{CAPP} model aspect is abstract and can be used for any parallel programming
-application. An interface is providing for calling the OpenCL kernel from the
-C++ core code so that the C++ core code does not need to include any
-cross-cutting OpenCL code.
+components handled by the aspect are the setup of the OpenCL
+context, the compilation of the kernel, the transfer of memory between the 
+host and device when the kernel is executed, and the kernel execution itself. 
+The aspect defined by the \textit{CAPP} model is abstract and can be used for 
+any parallel programming application. An interface is provided for calling the 
+OpenCL kernel from the C++ code so no cross-cutting OpenCL code is present in
+the C++ code, and the developer is not required to learn the OpenCL API.
 
-Two example problems were looked at: vector addition and options pricing. The
-implementations were done using the \textit{CAPP} model, OpenCL and C++ and were
-compared. The performance of the \textit{CAPP} model was similar to that of the
-OpenCL implementation but structurally was similar to the C++ implementation in
-terms of the number of lines and modularity. Both \textit{CAPP} implementations
-required no OpenCL code in the C++ header or implementation files.
+Two example problems were looked at: SAXPY and options pricing. \textit{CAPP}, OpenCL 
+and C++ implementations were compared for each problem. The performance of the 
+\textit{CAPP} model was shown to be similar to that of the OpenCL
+implementation, with 7 and 1.4\% performance reductions, respectively. Structurally 
+the \textit{CAPP} implementation was similar 
+to the C++  implementation in terms of the number of lines and modularity, and
+better designed that the OpenCL implementation. Both \textit{CAPP} implementations
+required no OpenCL code in the C++ header or implementation files, therefore the
+\textit{CAPP} model provides high performance parallel programming using C++.
 
 \section{Future Work}\label{sec:future}
 
 The \textit{CAPP} model proposed in this paper looked at using aspects to hide
-the complexities and cross-cutting concerns of parallel programming. Only a
-fraction of the OpenCL API was used to allow OpenCL kernels to be run from the
-C++ core code without using OpenCL, however, the OpenCL API is extensive and
-provides many additional features which could be included in the abstract
-aspect.  
+the complexities and cross-cutting concerns of parallel programming. However, only a
+minimal amount of the OpenCL API was used to allow OpenCL kernels to be run from the
+C++ code. The OpenCL API is extensive and provides many additional features which 
+could be included in the abstract aspect. Furthermore, additional, more specific
+aspects could derive from the abstract aspect but provide other functionality, 
+for example execution timing, performance profiling, or logging.
 
-The slight performance difference between the \textit{CAPP} implementations and
-the OpenCL implementations could be reduced by optimising the aspect code.
-OpenCL provides functionality which is available for GPUs from multiple vendors.
-Preliminary results on the latest development have shown that for Nvidia GPUs
-CUDA can sometimes improve performance. The \textit{CAPP} model could be extended
-to use the CUDA API if an Nvidia GPU is detected and then to use OpenCL for any
-other vendor as well as for CPU implementations. 
+The slight performance reduction of the \textit{CAPP} implementation over the
+OpenCL implementation could be reduced by optimising the aspect code.
 
-The \textit{CAPP} model required the programmer to specify the kernel. While this
-was done to allow the programmer to write the kernel specifically for their
-application. However, another complexity of parallel programming is the
-conversion of the algorithm from its sequential form to a parallel one. It is
-often not known if the algorithm can be effectively parallelized. Future
-versions of the \textit{CAPP} model could provide the option to the programmer to
-provide their own kernel, or to specify the algorithm in C++ and has the aspect
-create the kernel, if possible. This would allow for complete modularisation of
-parallel programming yet still provide the developer with the option to provide
-a specific kernel if the algorithm is known to be complex or an optimal kernel
-implementation is known.
+OpenCL provides functionality which is available for parallel devices from
+multiple vendors, which may not take advantage of features specific to some
+vendors - for example dynamic parallelism available to some Nvidia GPUs.
+Future work would involve extending the \textit{CAPP} aspects to take advantage
+of these specific hardware features. This would require including the CUDA API
+into the model. To perform this efficiently templates would need to be used, and
+hence the next release of the AspectC++ compiler would be required, to
+minimise runtime evaluation and rather perform the evaluation at compile time.
+
+To provide a parallel programming environment which can be written explicitly in
+C++, the kernel would need to be written using C++. Future version of the
+\textit{CAPP} model could provide the option to the programmer to either specify
+the kernel themselves, or to have the \textit{CAPP} model attempt to
+parallelize a C++ function into a kernel. It is unlikely that this feature would
+ever achieve performance levels equivalent to kernels specified by experienced
+programmers. However, even if only minimal speedup were to be achieved, this would prove 
+useful for applications where any additional performance is needed but where the
+programmers have no knowledge of parallel programming. 
 
 %
 % The following two commands are all you need in the
