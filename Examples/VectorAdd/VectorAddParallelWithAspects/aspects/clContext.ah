@@ -72,6 +72,8 @@ aspect clContext
 				virtual void runKernel(vector< vector<T> >& inputs,
 									   vector< vector<T> >& outputs) = 0;
 
+				timespec GetRunTime();
+
 			private:
 				// Sets up the necessary OpenCL variables using the device type
 				// and the kernel source file

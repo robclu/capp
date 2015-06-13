@@ -1,9 +1,9 @@
 
 #line 1 "src/VectorAdd.cpp"
-#ifndef __ac_FIRST__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects__
-#define __ac_FIRST__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects__
-#define __ac_FIRST_FILE__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_src_VectorAdd_cpp__
-#endif // __ac_FIRST__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects__
+#ifndef __ac_FIRST__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects__
+#define __ac_FIRST__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects__
+#define __ac_FIRST_FILE__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_src_VectorAdd_cpp__
+#endif // __ac_FIRST__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects__
 
 #line 1 "src/VectorAdd.cpp"
 
@@ -90,8 +90,8 @@ namespace AC {
 }
 #endif
 
-#ifndef __ac_need__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
-#define __ac_need__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
+#ifndef __ac_need__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
+#define __ac_need__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
 #endif
 
 #line 1 "src/VectorAdd.cpp"
@@ -115,8 +115,8 @@ namespace AC {
 }
 #endif
 
-#ifndef __ac_need__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
-#define __ac_need__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
+#ifndef __ac_need__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
+#define __ac_need__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
 #endif
 
 #line 1 "src/VectorAdd.h"
@@ -157,8 +157,8 @@ class VectorAdd;
 
 #line 159 "VectorAdd.acc"
 
-#ifndef __ac_guard__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_clContext_ah__
-#define __ac_guard__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_clContext_ah__
+#ifndef __ac_guard__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_clContext_ah__
+#define __ac_guard__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_clContext_ah__
 
 #line 1 "aspects/clContext.ah"
 /*
@@ -265,6 +265,8 @@ private:
 				virtual void runKernel(vector< vector<T> >& inputs,
 									   vector< vector<T> >& outputs) = 0;
 
+				timespec GetRunTime();
+
 			private:
 				// Sets up the necessary OpenCL variables using the device type
 				// and the kernel source file
@@ -281,25 +283,25 @@ private:
 		// Virtual pointcuts which must be set to the cpp classes that will need
 		// the pointcuts advice (which is defined below)
 		
-#line 90 "aspects/clContext.ah"
+#line 92 "aspects/clContext.ah"
 
 
 		// Pointcuts that run on contruction and setup OpenCL
 		// Sets up both the OpenCL variables and the kernel
 		
-#line 94 "aspects/clContext.ah"
+#line 96 "aspects/clContext.ah"
 		
 
 		// Pointcut to manage opencl variables (mostly mem) when the kernel is
 		// executed
 		
-#line 99 "aspects/clContext.ah"
+#line 101 "aspects/clContext.ah"
  
 
 		// Insert the class clContext - all its variables and functions into the
 		// classes defined bu programs
 		
-#line 103 "aspects/clContext.ah"
+#line 105 "aspects/clContext.ah"
 
 
 		// setupOpenCL(...) will be inserted into the classes defined by
@@ -310,16 +312,16 @@ private:
 public: 
 #line 4 "aspects/clContext.ah"
  template<class JoinPoint> void __a0_around 
-#line 107 "aspects/clContext.ah"
+#line 109 "aspects/clContext.ah"
 (JoinPoint *tjp) 
 		{
-#line 317 "VectorAdd.acc"
+#line 319 "VectorAdd.acc"
 
   typedef typename JoinPoint::That __JP_That;
   typedef typename JoinPoint::Target __JP_Target;
   typedef typename JoinPoint::Result __JP_Result;
 
-#line 108 "aspects/clContext.ah"
+#line 110 "aspects/clContext.ah"
 
 			This->setupOpenCL(This->deviceType, This->kernelSource);
 			This->setupKernel(This->kernelSource, This->kernelName);
@@ -333,16 +335,16 @@ public:
 public: 
 #line 4 "aspects/clContext.ah"
  template<class JoinPoint> void __a1_before 
-#line 115 "aspects/clContext.ah"
+#line 117 "aspects/clContext.ah"
 (JoinPoint *tjp) 
 		{
-#line 340 "VectorAdd.acc"
+#line 342 "VectorAdd.acc"
 
   typedef typename JoinPoint::That __JP_That;
   typedef typename JoinPoint::Target __JP_Target;
   typedef typename JoinPoint::Result __JP_Result;
 
-#line 116 "aspects/clContext.ah"
+#line 118 "aspects/clContext.ah"
 
 			// Pass as arguments pointers to the runKernel() fn's arguments
 			// i.e the inputs and outputs vectors which are modified, not
@@ -362,14 +364,14 @@ class VectorAddParallel
 : public clContext::clInstance
 #line 30 "src/VectorAdd.h"
 {
-#line 366 "VectorAdd.acc"
+#line 368 "VectorAdd.acc"
 public:
   template <typename, int = 0> struct __CALL_VectorAddParallel {};
   template <typename, int> friend struct __CALL_VectorAddParallel;
 private:
 #line 30 "src/VectorAdd.h"
 
-#line 373 "VectorAdd.acc"
+#line 375 "VectorAdd.acc"
   friend class ::clContext;
   friend class ::VectorAdd;
 
@@ -378,7 +380,7 @@ private:
 	public:
 		// Sets parameters that OpenCL will need to setup the environment
 		
-#line 382 "VectorAdd.acc"
+#line 384 "VectorAdd.acc"
 
 
 template <typename TResult, typename TThat, typename TTarget, typename TArgs> struct TJP__ZN17VectorAddParallelC1EKN3stdE12basic_stringIcEKN3stdE12basic_stringIcEKN3stdE12basic_stringIcE_0 {
@@ -417,7 +419,7 @@ VectorAddParallel(const string dType,
 					      const string kSource,
 						  const string kName) 
 			: deviceType(dType), kernelSource(kSource), kernelName(kName) 
-#line 421 "VectorAdd.acc"
+#line 423 "VectorAdd.acc"
 {
   typedef TJP__ZN17VectorAddParallelC1EKN3stdE12basic_stringIcEKN3stdE12basic_stringIcEKN3stdE12basic_stringIcE_0< void, ::VectorAddParallel , ::VectorAddParallel ,  AC::TL< ::std::string , AC::TL< ::std::string , AC::TL< ::std::string , AC::TLE > > > > __TJP;
     __TJP tjp;
@@ -436,7 +438,7 @@ __attribute__((always_inline)) inline void __exec_old_C1(const ::std::string ,co
 		// Function to run the kernel, which must be in this form as defined by
 		// the clContext aspect (specifically in the clInstance class)
 		
-#line 440 "VectorAdd.acc"
+#line 442 "VectorAdd.acc"
 public: __attribute__((always_inline)) inline void __exec_old_runKernel(::std::vector<std::vector<float> > &inputs,::std::vector<std::vector<float> > &outputs);
 
 #line 40 "src/VectorAdd.h"
@@ -466,7 +468,7 @@ void runKernel(vector< vector<T> > &inputs,
 		vector< vector<T> > in;			// Input data
 		vector< vector<T> > out;			// Output data
 
-#line 470 "VectorAdd.acc"
+#line 472 "VectorAdd.acc"
 
 template <typename TResult, typename TThat, typename TTarget, typename TArgs> struct TJP__ZN17VectorAddParallelC1ERK17VectorAddParallel_0 {
   typedef TJP__ZN17VectorAddParallelC1ERK17VectorAddParallel_0 __TJP;
@@ -475,7 +477,7 @@ template <typename TResult, typename TThat, typename TTarget, typename TArgs> st
   typedef TTarget Target;
   enum { ARGS = TArgs::ARGS };
   template <int I> struct Arg : AC::Arg<TArgs, I> {};
-  static const int JPID = 35;
+  static const int JPID = 36;
   static const AC::JPType JPTYPE = (AC::JPType)16;
   struct Res {
     typedef void Type;
@@ -500,7 +502,7 @@ template <typename TResult, typename TThat, typename TTarget, typename TArgs> st
 
 #line 65 "src/VectorAdd.h"
 
-#line 504 "VectorAdd.acc"
+#line 506 "VectorAdd.acc"
 
 public:
 inline VectorAddParallel (const VectorAddParallel &arg0) : clContext::clInstance (arg0), deviceType (arg0.deviceType), kernelSource (arg0.kernelSource), kernelName (arg0.kernelName), in (arg0.in), out (arg0.out) {
@@ -523,7 +525,7 @@ inline VectorAddParallel (const VectorAddParallel &arg0) : clContext::clInstance
 #include <cstring>
 
 
-#line 527 "VectorAdd.acc"
+#line 529 "VectorAdd.acc"
 
 
 template <typename TResult, typename TThat, typename TTarget, typename TArgs> struct TJP__ZN17VectorAddParallel9runKernelERN3stdE6vectorIN3stdE6vectorIfEERN3stdE6vectorIN3stdE6vectorIfEE_0 {
@@ -533,7 +535,7 @@ template <typename TResult, typename TThat, typename TTarget, typename TArgs> st
   typedef TTarget Target;
   enum { ARGS = TArgs::ARGS };
   template <int I> struct Arg : AC::Arg<TArgs, I> {};
-  static const int JPID = 24;
+  static const int JPID = 25;
   static const AC::JPType JPTYPE = (AC::JPType)8;
   struct Res {
     typedef TResult Type;
@@ -556,7 +558,7 @@ template <typename TResult, typename TThat, typename TTarget, typename TArgs> st
 void VectorAddParallel::runKernel(std::vector< std::vector<float> > &inputs,	
 								  std::vector< std::vector<float> > &outputs) 
 
-#line 560 "VectorAdd.acc"
+#line 562 "VectorAdd.acc"
 {
   typedef TJP__ZN17VectorAddParallel9runKernelERN3stdE6vectorIN3stdE6vectorIfEERN3stdE6vectorIN3stdE6vectorIfEE_0< void, ::VectorAddParallel , ::VectorAddParallel ,  AC::TL< ::std::vector<std::vector<float> > &, AC::TL< ::std::vector<std::vector<float> > &, AC::TLE > > > __TJP;
     __TJP tjp;
@@ -601,18 +603,18 @@ void VectorAddParallel::printResults() {
 	}
 }
 
-#line 605 "VectorAdd.acc"
+#line 607 "VectorAdd.acc"
 
-#ifdef __ac_FIRST_FILE__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_src_VectorAdd_cpp__
-#ifdef __ac_need__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_clContext_ah__
-#ifndef __ac_have__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_clContext_ah__
-#define __ac_have__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_clContext_ah__
+#ifdef __ac_FIRST_FILE__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_src_VectorAdd_cpp__
+#ifdef __ac_need__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_clContext_ah__
+#ifndef __ac_have__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_clContext_ah__
+#define __ac_have__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_clContext_ah__
 #include "aspects/clContext.ah"
 #endif
 #endif
-#ifdef __ac_need__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
-#ifndef __ac_have__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
-#define __ac_have__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
+#ifdef __ac_need__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
+#ifndef __ac_have__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
+#define __ac_have__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
 
 #line 1 "aspects/VectorAdd.ah"
 /*
@@ -628,20 +630,20 @@ void VectorAddParallel::printResults() {
 
 #line 1 "aspects/VectorAdd.ah"
 
-#line 632 "VectorAdd.acc"
+#line 634 "VectorAdd.acc"
 class clContext;
 
 #line 13 "aspects/VectorAdd.ah"
 class VectorAdd : public clContext
 {
-#line 638 "VectorAdd.acc"
+#line 640 "VectorAdd.acc"
 public:
   template <typename, int = 0> struct __CALL_VectorAdd {};
   template <typename, int> friend struct __CALL_VectorAdd;
 private:
 #line 14 "aspects/VectorAdd.ah"
 
-#line 645 "VectorAdd.acc"
+#line 647 "VectorAdd.acc"
 
 public:
   static VectorAdd *aspectof () {
@@ -655,7 +657,7 @@ private:
 
 #line 14 "aspects/VectorAdd.ah"
 
-#line 659 "VectorAdd.acc"
+#line 661 "VectorAdd.acc"
   friend class ::clContext;
 
 #line 14 "aspects/VectorAdd.ah"
@@ -668,7 +670,7 @@ private:
 	
 
 };
-#line 672 "VectorAdd.acc"
+#line 674 "VectorAdd.acc"
 
 namespace AC {
   template <class JoinPoint>
@@ -689,6 +691,6 @@ namespace AC {
 #line 13 "src/VectorAdd.cpp"
 #endif
 #endif
-#undef __ac_FIRST__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects__
-#undef __ac_FIRST_FILE__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_src_VectorAdd_cpp__
-#endif // __ac_FIRST_FILE__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_src_VectorAdd_cpp__
+#undef __ac_FIRST__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects__
+#undef __ac_FIRST_FILE__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_src_VectorAdd_cpp__
+#endif // __ac_FIRST_FILE__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_src_VectorAdd_cpp__

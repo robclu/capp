@@ -1,9 +1,9 @@
 
 #line 1 "aspects/clContext.cc"
-#ifndef __ac_FIRST__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects__
-#define __ac_FIRST__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects__
-#define __ac_FIRST_FILE__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_clContext_cc__
-#endif // __ac_FIRST__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects__
+#ifndef __ac_FIRST__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects__
+#define __ac_FIRST__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects__
+#define __ac_FIRST_FILE__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_clContext_cc__
+#endif // __ac_FIRST__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects__
 
 #line 1 "aspects/clContext.cc"
 
@@ -189,6 +189,8 @@ private:
 				virtual void runKernel(vector< vector<T> >& inputs,
 									   vector< vector<T> >& outputs) = 0;
 
+				timespec GetRunTime();
+
 			private:
 				// Sets up the necessary OpenCL variables using the device type
 				// and the kernel source file
@@ -205,25 +207,25 @@ private:
 		// Virtual pointcuts which must be set to the cpp classes that will need
 		// the pointcuts advice (which is defined below)
 		
-#line 90 "aspects/clContext.ah"
+#line 92 "aspects/clContext.ah"
 
 
 		// Pointcuts that run on contruction and setup OpenCL
 		// Sets up both the OpenCL variables and the kernel
 		
-#line 94 "aspects/clContext.ah"
+#line 96 "aspects/clContext.ah"
 		
 
 		// Pointcut to manage opencl variables (mostly mem) when the kernel is
 		// executed
 		
-#line 99 "aspects/clContext.ah"
+#line 101 "aspects/clContext.ah"
  
 
 		// Insert the class clContext - all its variables and functions into the
 		// classes defined bu programs
 		
-#line 103 "aspects/clContext.ah"
+#line 105 "aspects/clContext.ah"
 
 
 		// setupOpenCL(...) will be inserted into the classes defined by
@@ -234,16 +236,16 @@ private:
 public: 
 #line 4 "aspects/clContext.ah"
  template<class JoinPoint> void __a0_around 
-#line 107 "aspects/clContext.ah"
+#line 109 "aspects/clContext.ah"
 (JoinPoint *tjp) 
 		{
-#line 241 "clContext.acc"
+#line 243 "clContext.acc"
 
   typedef typename JoinPoint::That __JP_That;
   typedef typename JoinPoint::Target __JP_Target;
   typedef typename JoinPoint::Result __JP_Result;
 
-#line 108 "aspects/clContext.ah"
+#line 110 "aspects/clContext.ah"
 
 			This->setupOpenCL(This->deviceType, This->kernelSource);
 			This->setupKernel(This->kernelSource, This->kernelName);
@@ -257,16 +259,16 @@ public:
 public: 
 #line 4 "aspects/clContext.ah"
  template<class JoinPoint> void __a1_before 
-#line 115 "aspects/clContext.ah"
+#line 117 "aspects/clContext.ah"
 (JoinPoint *tjp) 
 		{
-#line 264 "clContext.acc"
+#line 266 "clContext.acc"
 
   typedef typename JoinPoint::That __JP_That;
   typedef typename JoinPoint::Target __JP_Target;
   typedef typename JoinPoint::Result __JP_Result;
 
-#line 116 "aspects/clContext.ah"
+#line 118 "aspects/clContext.ah"
 
 			// Pass as arguments pointers to the runKernel() fn's arguments
 			// i.e the inputs and outputs vectors which are modified, not
@@ -284,7 +286,8 @@ public:
 #include <iterator>
 #include <fstream>
 
-#define LOCAL_SIZE 512
+#define LOCAL_SIZE 256
+
 timespec diff(timespec start, timespec end)
 {
 	timespec temp;
@@ -407,25 +410,28 @@ void clContext::clInstance::manageClBuffers(vector< vector<T> > * inputs, vector
 
 	// Stop the timer
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end);
-
-	cout << "Time in nanoseconds: " << diff(start, end).tv_nsec << endl;
 }
 
-#line 415 "clContext.acc"
+timespec clContext::clInstance::GetRunTime() {
+	return diff(start,end);
+}
 
-#ifdef __ac_FIRST_FILE__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_clContext_cc__
-#ifdef __ac_need__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_clContext_ah__
-#ifndef __ac_have__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_clContext_ah__
-#define __ac_have__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_clContext_ah__
+
+#line 421 "clContext.acc"
+
+#ifdef __ac_FIRST_FILE__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_clContext_cc__
+#ifdef __ac_need__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_clContext_ah__
+#ifndef __ac_have__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_clContext_ah__
+#define __ac_have__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_clContext_ah__
 #include "aspects/clContext.ah"
 #endif
 #endif
-#ifdef __ac_need__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
-#ifndef __ac_have__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
-#define __ac_have__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
+#ifdef __ac_need__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
+#ifndef __ac_have__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
+#define __ac_have__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_VectorAdd_ah__
 #include "aspects/VectorAdd.ah"
 #endif
 #endif
-#undef __ac_FIRST__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects__
-#undef __ac_FIRST_FILE__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_clContext_cc__
-#endif // __ac_FIRST_FILE__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAddParallelWithAspects_aspects_clContext_cc__
+#undef __ac_FIRST__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects__
+#undef __ac_FIRST_FILE__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_clContext_cc__
+#endif // __ac_FIRST_FILE__home_joker_Programs_OpenCl_EasyCL_Examples_VectorAdd_VectorAddParallelWithAspects_aspects_clContext_cc__

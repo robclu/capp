@@ -29,6 +29,9 @@
 #include <vector>
 #include <fstream>
 #include <time.h>
+#include <sstream>
+
+#define __CL_ENABLE_EXCEPTIONS
 
 // Make sure we are using version 1.1
 // otherwise NVIDIA GPU's wont work
@@ -40,7 +43,6 @@
 #endif
 
 #define T float
-#define N 512 * 8 * 4*4*4*4
 #define I 2
 
 using namespace std;
@@ -59,11 +61,14 @@ timespec diff(timespec start, timespec end)
 
 int main(int argc, char** argv) {
 
+	cl_int err;
+
+	istringstream ss(argv[1]);
+	int N;
+	ss >> N;
+
 	// Timer variables 
 	timespec start, end;
-
-	// Start the clock
-	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);
 
 	// OpenCl variables
 	vector<cl::Platform> platforms;
@@ -89,6 +94,9 @@ int main(int argc, char** argv) {
 		in.push_back(tmp);
 	}
 
+	// Start the clock
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);
+
 	// ------------- Start OpenCL Setup ----------------- //
 	
 	cl::Platform::get(&platforms);
@@ -103,6 +111,8 @@ int main(int argc, char** argv) {
 
 	devices = context.getInfo<CL_CONTEXT_DEVICES>();
 
+	queue = cl::CommandQueue(context, devices[0]);
+	
 	// -------------- Kernel Execution Setup ------------ //
 	
 	ifstream kSource("vectkernel.cl");
@@ -121,16 +131,28 @@ int main(int argc, char** argv) {
 
 	program = cl::Program(context, source);
 
-	program.build(devices);
+	err = program.build(devices);
+	if(err != CL_SUCCESS){
+		std::cout << "Build Status: " << program.getBuildInfo<CL_PROGRAM_BUILD_STATUS>(devices[0]) << std::endl;
+		std::cout << "Build Options:\t" << program.getBuildInfo<CL_PROGRAM_BUILD_OPTIONS>(devices[0]) << std::endl;
+		std::cout << "Build Log:\t " << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(devices[0]) << std::endl;
+	}
 
-	kernel = cl::Kernel(program, "vectkernel");
+	try{
+		kernel = cl::Kernel(program, "vectkernel", &err);
+	}
+	catch (cl::Error er) {
+		    printf("ERROR: %s(%d)\n", er.what(), er.err());
+	}
 
 	// Create buffers for input
 	for (auto& input : in ) {
-		buffers.emplace_back( 
+		buffers.push_back( 
+			cl::Buffer(
 				context,
 				CL_MEM_READ_ONLY,
 				input.size() * sizeof(T)
+				)
 		);
 		queue.enqueueWriteBuffer(
 				buffers.back(),
@@ -151,16 +173,14 @@ int main(int argc, char** argv) {
 		kernel.setArg(i, buffers[i]);
 	}
 
-	cl::NDRange global(in[0].size(), 1, 1);
-	cl::NDRange local(512, 1, 1);
+	cl::NDRange global(N,1,1);
+	cl::NDRange local(256,1,1);
 
 	// ------------ Run Kernel --------------- //
 	
 	queue.enqueueNDRangeKernel(kernel, cl::NullRange, global, local);
-
-	// Read results back
 	
-	T result[N];
+	T* result = new T[N];
 	queue.enqueueReadBuffer(
 			buffers.back(),
 			CL_TRUE,
@@ -172,7 +192,9 @@ int main(int argc, char** argv) {
 	// Stop the timer
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end);
 
-	cout << "Time in nanoseconds: " << diff(start, end).tv_nsec << endl;
+	free(result);
+
+	cout << N << " "  << diff(start, end).tv_nsec << endl;
 	return 1;
 
 }

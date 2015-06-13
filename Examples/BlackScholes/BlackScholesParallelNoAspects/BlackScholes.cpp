@@ -29,6 +29,9 @@
 #include <vector>
 #include <fstream>
 #include <time.h>
+#include <sstream>
+
+#define __CL_ENABLE_EXCEPTIONS
 
 // Make sure we are using version 1.1
 // otherwise NVIDIA GPU's wont work
@@ -39,11 +42,17 @@
 	#undef   CL_VERSION_1_2
 #endif
 
-#define T float
-#define OP_COUNT 512 
+#define Type float
+#define NUM_OPTION 2048
 #define I 2
 
 using namespace std;
+
+// For random floats
+float randFloat(float low, float high) {
+    float t = (float)rand() / (float)RAND_MAX;
+    return (1.0f - t) * low + t * high;
+}
 
 // Function for computing the time between two time points
 timespec diff(timespec start, timespec end)
@@ -57,13 +66,18 @@ timespec diff(timespec start, timespec end)
 	return temp;
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char* argv[]) {
+
+	cl_int err;
+
+	istringstream ss(argv[1]);
+	int NUM_OPTIONS;
+	ss >> NUM_OPTIONS;
+
+	const size_t NUM_OPS = NUM_OPTIONS;
 
 	// Timer variables 
 	timespec start, end;
-
-	// Start the clock
-	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);
 
 	// OpenCl variables
 	vector<cl::Platform> platforms;
@@ -75,23 +89,29 @@ int main(int argc, char** argv) {
 	cl::Kernel kernel;
 
 	// Input and output vectors
-	vector<vector<T>> in;
-	vector<T> call, put, S, X, T, out;
-
-	// Allocate data 
-	for (size_t i = 0; i < N; i++) {
-		out.push_back(static_cast<T>(0));
-	}
+	vector<vector<Type>> in;
+	vector<Type> call, put, S, X, T, out;
+	vector<Type> options = { (float)NUM_OPTIONS };
 
 	// Define input data
-	for (size_t i = 0; i < OP_COUNT; i++) {
-		call.push_back((T)-1);
-		put.push_back((T)-1);
+	for (size_t i = 0; i < NUM_OPTIONS; i++) {
+		call.push_back((Type)-1);
+		put.push_back((Type)-1);
 		S.push_back(randFloat(5.0f, 30.0f));
 		X.push_back(randFloat(1.0f, 100.0f));
 		T.push_back(randFloat(0.25f, 10.0f));
+		out.push_back(0.f);
 	}
 
+	in.push_back(call);
+	in.push_back(put);
+	in.push_back(S);
+	in.push_back(X);
+	in.push_back(T);
+	in.push_back(options);
+
+	// Start the clock
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);
 
 	// ------------- Start OpenCL Setup ----------------- //
 	
@@ -107,9 +127,11 @@ int main(int argc, char** argv) {
 
 	devices = context.getInfo<CL_CONTEXT_DEVICES>();
 
+	queue = cl::CommandQueue(context, devices[0]);
+
 	// -------------- Kernel Execution Setup ------------ //
 	
-	ifstream kSource("vectkernel.cl");
+	ifstream kSource("BlackScholes.cl");
 
 	string sourcestr(
 			istreambuf_iterator<char>(kSource),
@@ -125,58 +147,74 @@ int main(int argc, char** argv) {
 
 	program = cl::Program(context, source);
 
-	program.build(devices);
+	err = program.build(devices);
+	if(err != CL_SUCCESS){
+		std::cout << "Build Status: " << program.getBuildInfo<CL_PROGRAM_BUILD_STATUS>(devices[0]) << std::endl;
+		std::cout << "Build Options:\t" << program.getBuildInfo<CL_PROGRAM_BUILD_OPTIONS>(devices[0]) << std::endl;
+		std::cout << "Build Log:\t " << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(devices[0]) << std::endl;
+	}
 
-	kernel = cl::Kernel(program, "vectkernel");
+	try{
+		kernel = cl::Kernel(program, "BlackScholes", &err);
+	}
+	catch (cl::Error er) {
+		    printf("ERROR: %s(%d)\n", er.what(), er.err());
+	}
 
 	// Create buffers for input
 	for (auto& input : in ) {
-		buffers.emplace_back( 
+		buffers.push_back(
+			   cl::Buffer(	
 				context,
 				CL_MEM_READ_ONLY,
-				input.size() * sizeof(T)
+				input.size() * sizeof(Type))
 		);
 		queue.enqueueWriteBuffer(
 				buffers.back(),
 				CL_TRUE,
 				0,
-				input.size() * sizeof(T),
+				input.size() * sizeof(Type),
 				&input[0]
 		);
 	}
-
-	buffers.emplace_back( 
-			context,
-			CL_MEM_WRITE_ONLY,
-			out.size() * sizeof(T)
-	);
+	buffers.push_back(
+			   cl::Buffer(	
+				context,
+				CL_MEM_WRITE_ONLY,
+				out.size() * sizeof(Type))
+		);
+		queue.enqueueWriteBuffer(
+				buffers.back(),
+				CL_TRUE,
+				0,
+				out.size() * sizeof(Type),
+				&out[0]
+		);
 
 	for (size_t i = 0; i < buffers.size(); i++) {
 		kernel.setArg(i, buffers[i]);
 	}
 
-	cl::NDRange global(in[0].size(), 1, 1);
-	cl::NDRange local(512, 1, 1);
+	cl::NDRange global(NUM_OPTION);
+	cl::NDRange local(256);
 
 	// ------------ Run Kernel --------------- //
 	
-	queue.enqueueNDRangeKernel(kernel, cl::NullRange, global, local);
+	err = queue.enqueueNDRangeKernel(kernel, cl::NullRange, NUM_OPTIONS, local);
 
 	// Read results back
-	
-	T result[N];
 	queue.enqueueReadBuffer(
 			buffers.back(),
 			CL_TRUE,
 			0, 
-			out.size() * sizeof(T),
-			result
+			out.size() * sizeof(Type),
+			&out[0]
 	);
 
 	// Stop the timer
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end);
 
-	cout << "Time in nanoseconds: " << diff(start, end).tv_nsec << endl;
+	cout << NUM_OPTIONS << " " << diff(start, end).tv_nsec << endl;
 	return 1;
 
 }

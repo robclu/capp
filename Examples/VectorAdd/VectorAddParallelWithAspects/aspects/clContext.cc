@@ -12,7 +12,8 @@
 #include <iterator>
 #include <fstream>
 
-#define LOCAL_SIZE 512
+#define LOCAL_SIZE 256
+
 timespec diff(timespec start, timespec end)
 {
 	timespec temp;
@@ -135,6 +136,9 @@ void clContext::clInstance::manageClBuffers(vector< vector<T> > * inputs, vector
 
 	// Stop the timer
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end);
-
-	cout << "Time in nanoseconds: " << diff(start, end).tv_nsec << endl;
 }
+
+timespec clContext::clInstance::GetRunTime() {
+	return diff(start,end);
+}
+

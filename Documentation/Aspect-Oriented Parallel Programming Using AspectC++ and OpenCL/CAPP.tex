@@ -1,0 +1,1052 @@
+% This is "sig-alternate.tex" V2.1 April 20
+% This file should be compiled with V2.5 of "sig-alternate.cls" May 2012
+%
+% This example file demonstrates the use of the 'sig-alternate.cls'
+% V2.5 LaTeX2e document class file. It is for those submitting
+% articles to ACM Conference Proceedings WHO DO NOT WISH TO
+% STRICTLY ADHERE TO THE SIGS (PUBS-BOARD-ENDORSED) STYLE.
+% The 'sig-alternate.cls' file will produce a similar-looking,
+% albeit, 'tighter' paper resulting in, invariably, fewer pages.
+%
+% ----------------------------------------------------------------------------------------------------------------
+% This .tex file (and associated .cls V2.5) produces:
+%       1) The Permission Statement
+%       2) The Conference (location) Info information
+%       3) The Copyright Line with ACM data
+%       4) NO page numbers
+%
+% as against the acm_proc_article-sp.cls file which
+% DOES NOT produce 1) thru' 3) above.
+%
+% Using 'sig-alternate.cls' you have control, however, from within
+% the source .tex file, over both the CopyrightYear
+% (defaulted to 200X) and the ACM Copyright Data
+% (defaulted to X-XXXXX-XX-X/XX/XX).
+% e.g.
+% \CopyrightYear{2007} will cause 2007 to appear in the copyright line.
+% \crdata{0-12345-67-8/90/12} will cause 0-12345-67-8/90/12 to appear in the copyright line.
+%
+% ---------------------------------------------------------------------------------------------------------------
+% This .tex source is an example which *does* use
+% the .bib file (from which the .bbl file % is produced).
+% REMEMBER HOWEVER: After having produced the .bbl file,
+% and prior to final submission, you *NEED* to 'insert'
+% your .bbl file into your source .tex file so as to provide
+% ONE 'self-contained' source file.
+%
+% ================= IF YOU HAVE QUESTIONS =======================
+% Questions regarding the SIGS styles, SIGS policies and
+% procedures, Conferences etc. should be sent to
+% Adrienne Griscti (griscti@acm.org)
+%
+% Technical questions _only_ to
+% Gerald Murray (murray@hq.acm.org)
+% ===============================================================
+%
+% For tracking purposes - this is V2.0 - May 2012
+
+\documentclass{sig-alternate-05-2015}
+
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{listings}
+\pdfcompresslevel0
+\begin{document}
+
+% Copyright
+\setcopyright{acmcopyright}
+%\setcopyright{acmlicensed}
+%\setcopyright{rightsretained}
+%\setcopyright{usgov}
+%\setcopyright{usgovmixed}
+%\setcopyright{cagov}
+%\setcopyright{cagovmixed}
+
+
+% DOI
+%\doi{10.475/123_4}
+
+% ISBN
+%\isbn{123-4567-24-567/08/06}
+
+%Conference
+\conferenceinfo{SAICSIT '15}{September 28--30, 2015, Stellenbosch, ZAR}
+
+%\acmPrice{\$15.00}
+
+%
+% --- Author Metadata here ---
+%\conferenceinfo{WOODSTOCK}{'97 El Paso, Texas USA}
+%\CopyrightYear{2007} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
+%\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
+% --- End of Author Metadata ---
+
+\title{CAPP : C++ Aspect-Oriented Parallel Programming with AspectC++ and OpenCL}
+%\subtitle{[Extended Abstract]
+%\titlenote{A full version of this paper is available as
+%\textit{Author's Guide to Preparing ACM SIG Proceedings Using
+%\LaTeX$2_\epsilon$\ and BibTeX} at
+%\texttt{www.acm.org/eaddress.htm}}}
+%
+% You need the command \numberofauthors to handle the 'placement
+% and alignment' of the authors beneath the title.
+%
+% For aesthetic reasons, we recommend 'three authors at a time'
+% i.e. three 'name/affiliation blocks' be placed beneath the title.
+%
+% NOTE: You are NOT restricted in how many 'rows' of
+% "name/affiliations" may appear. We just ask that you restrict
+% the number of 'columns' to three.
+%
+% Because of the available 'opening page real-estate'
+% we ask you to refrain from putting more than six authors
+% (two rows with three columns) beneath the article title.
+% More than six makes the first-page appear very cluttered indeed.
+%
+% Use the \alignauthor commands to handle the names
+% and affiliations for an 'aesthetic maximum' of six authors.
+% Add names, affiliations, addresses for
+% the seventh etc. author(s) as the argument for the
+% \additionalauthors command.
+% These 'additional authors' will be output/set for you
+% without further effort on your part as the last section in
+% the body of your article BEFORE References or any Appendices.
+
+\numberofauthors{1} %  in this sample file, there are a *total*
+% of EIGHT authors. SIX appear on the 'first-page' (for formatting
+% reasons) and the remaining two appear in the \additionalauthors section.
+%
+\author{
+% You can go ahead and credit any number of authors here,
+% e.g. one 'row of three' or two rows (consisting of one row of three
+% and a second row of one, two or three).
+%
+% The command \alignauthor (no curly braces needed) should
+% precede each author name, affiliation/snail-mail address and
+% e-mail address. Additionally, tag each line of
+% affiliation/address with \affaddr, and tag the
+% e-mail address with \email.
+%
+% 1st. author
+\alignauthor
+Robert Clucas\\
+       \affaddr{University of the Witwatersrand}\\
+       \affaddr{1 Jan Smuts Avenue}\\
+	   \affaddr{Johannesburg, South Africa}\\
+       \email{robert.clucas@students.wits.ac.za}
+}
+% There's nothing stopping you putting the seventh, eighth, etc.
+% author on the opening page (as the 'third row') but we ask,
+% for aesthetic reasons that you place these 'additional authors'
+% in the \additional authors block, viz.
+%\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
+%email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
+%(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
+\date{\today}
+% Just remember to make sure that the TOTAL number of authors
+% is the number that will appear on the first page PLUS the
+% number that will appear in the \additionalauthors section.
+
+\maketitle
+\begin{abstract}
+	Parallel programming provides higher computational performance over
+	sequential implementation if the
+	program is parallelizable. However, external parallel capable devices are
+	required to perform the parallel computation. Current programming API's such
+	as OpenCL and CUDA which provide an interface for parallel programming
+	require substantial amounts of code for performing even the
+	simplest parallel computations. This leads to code which includes
+	cross-cutting components such as setting up the parallel programming
+	context, compiling the parallel kernel, and transferring data between the
+	host and device memory spaces when the kernel is executed.
+	An Aspect-Oriented Parallel Programming model is developed, using AspectC++,
+	which uses an abstract aspect to remove the cross-cutting components from 
+	the C++ code. The aspect sets up the OpenCL context, compiles the OpenCL
+	kernel, and manages the data transfer between the memory spaces each time a
+	kernel is executed. The aspect is woven into the C++ code before compilation
+	rather than at runtime, which improves performance. The result is simple C++
+	code which does not require any OpenCL code and is void of cross-cutting
+	concerns, and allows a parallel kernel to be executed with a single function
+	call. The model was applied to the SAXPy and Black-Scholes option pricing
+	problems. Computational performance was 7-11\% slower than the OpenCL
+	implementation while the amount of code was greatly reduced from the OpenCL
+	solution, and model C++ files was comparable in structure and length to
+	native C++ implementation.
+\end{abstract}
+
+
+%
+% The code below should be generated by the tool at
+% http://dl.acm.org/ccs.cfm
+% Please copy and paste the code instead of the example below. 
+%
+
+\begin{CCSXML}
+	<ccs2012>
+	<concept>
+	<concept_id>10010147.10010169.10010175</concept_id>
+	<concept_desc>Computing methodologies~Parallel programming
+	languages</concept_desc>
+	<concept_significance>500</concept_significance>
+	</concept>
+	<concept>
+	<concept_id>10010520.10010521.10010528</concept_id>
+	<concept_desc>Computer systems organization~Parallel
+	architectures</concept_desc>
+	<concept_significance>300</concept_significance>
+	</concept>
+	<concept>
+	<concept_id>10011007.10011006.10011050</concept_id>
+	<concept_desc>Software and its engineering~Context specific
+	languages</concept_desc>
+	<concept_significance>300</concept_significance>
+	</concept>
+	</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Computing methodologies~Parallel programming languages}
+\ccsdesc[300]{Computer systems organization~Parallel architectures}
+\ccsdesc[300]{Software and its engineering~Context specific languages}
+%
+% End generated code
+%
+
+%
+%  Use this command to print the description
+%
+\printccsdesc
+
+% We no longer use \terms command
+%\terms{Theory}
+
+\keywords{Aspect; device; host; parallel; cross-cutting}
+
+\section{Introduction}\label{sec:intro}
+
+In recent years CPU core frequencies have started to plateau 
+\cite{standb}. Multiple core CPUs and many core GPUs were the result of this
+plateau. The cores used for CPUs and GPUs differ 
+in complexity and are hence advantageous for different tasks. GPUs use many 
+(up to thousands) simple cores to increase computational efficiency, while CPUs 
+use fewer, complex cores which generally have higher frequencies than those used
+in GPUs. Due to the number of cores available when using a GPU, GPUs are suited 
+to data parallel tasks where the same operation can be performed on each element 
+of a high dimensional dataset. Modern CPUs can also provide data parallelism through
+single instruction multiple data (SIMD) operations and their numerous cores. However, 
+due to having fewer cores they provide less dramatic increases in performance and require 
+large amounts of power to perform the instruction level parallelism \cite{kumar:power}.
+General-Purpose GPU (GPGPU) programming involves combining CPUs and GPUs 
+into a single, hybrid system which provides increased computational performance 
+by using the CPU (\textit{host}) to pass data to the GPU (\textit{device}) which 
+performs the computation on the data in a parallel manner.
+For GPGPU programming there are two main API's available to the programmer - 
+OpenCL \cite{opencl} and CUDA \cite{cuda}. 
+
+OpenCL is an attempt to provide a standard API for programming parallel capable
+hardware. It provides support for all main CPU and GPU hardware vendors, namely
+Nvidia, AMD and Intel. This wide range of support is advantageous as a 
+parallel implementation using the OpenCL API could run simultaneously on the CPU
+and GPU, maximising the hardware capabilities of the parallel system. CUDA applies 
+a similar methodology and also provides an API for writing programs which can be 
+executed on parallel capable hardware, however, it is specific to Nvidia hardware 
+and hence parallel kernels cannot be executed on CPUs or GPUs from any other 
+hardware vendor.
+
+These parallel systems are more difficult to program than sequential 
+systems. This is mostly due to the addition of the external \textit{devices}, 
+their low level nature and that communication is required between them and the
+\textit{host}. To perform parallel computation on the \textit{device} using OpenCL 
+the generalised sequence of events, which is similar to the generalised sequences 
+of events for a CUDA C program \cite{harris:cuda}, is (The colors after the 
+description relate to the examples given in Listings~\ref{vectcpp} and
+\ref{vectcl}):
+\begin{enumerate}
+	\item{Initialize the data on the \textit{host} (Green)}
+	\item{Setup the OpenCL variables, which involves (Red):
+			\begin{itemize}
+				\item{Setting the OpenCl platform }
+				\item{Creating the OpenCL Context }
+				\item{Setting the parallel device(s) to use }
+				\item{Creating the OpenCL command queue }
+		\end{itemize} }
+	\item{Create the OpenCL kernel (Blue)}
+	\item{Create the OpenCL buffers and move the data from \textit{host} to
+		\textit{device} (Magenta)}
+	\item{Execute the kernel on the parallel device(s) (Green)}
+	\item{Move the results from \textit{device} memory back to the \textit{host}
+		memory (Magenta)}
+\end{enumerate}
+
+This is a substantial amount of work to perform parallel computation.
+Comparatively, to perform the same computation on the \textit{host} only 
+steps 1 and 5 defined above are required. All other steps increase
+the complexity and cross-cut the main intention of
+the C++ core code (code directly related to the problem) which for parallel
+programming is the computation of an algorithm on the data. This overheard is 
+illustrated by a comparison of Listings~\ref{vectcpp} and \ref{vectcl} which 
+provide a simple vector addition implementation using C++ and OpenCL respectively.
+
+The need for GPGPU programming arises from the computational complexity of
+algorithms which results in non-GPGPU systems not being able to perform the
+computation in a sufficiently small amount of time. The additional complexities
+make parallel development inefficient and require programmers to learn the complex 
+OpenCL or CUDA API's, hence programmers are generally reluctant to to learn that 
+which is required for parallel programming. However, the computational
+performance increase
+provided by GPGPU programming is still desired and thus the complex, low-level
+interaction between the \textit{host} and \textit{device} must be overcome to
+achieve the gain in performance.
+
+To remove the requirement of the programmer having to deal with the parallel
+programming complexities, 
+Aspect-Oriented Programming  (AOP) \cite{gregor:aop} can provide a solution which 
+allows the cross-cutting components to be modularized into aspects which are not
+part of the C++ files which define the core code, but separately defined. This
+results in simple C++ core code consisting of code only directly related to 
+the program's intention. The aspects are \textit{woven} into the C++ files before 
+compilation so that when the code is compiled the cross-cutting code is present.
+
+An AOP implementation for C++ has been available  since 2001 in the form of AspectC++ 
+\cite{gal:acppprop} \cite{olaf:app}. However, the use of aspects in low-level
+parallel programming is limited. While there are very few examples of using
+aspects to modularizes the complexities of parallel programming numerous proposals 
+have been made which aim to reduce the complexities using object-orientated
+API's or new parallel languages.  This paper presents the C++ Aspect Parallel
+Programming \textit{CAPP} model which makes use of aspects, implemented using AspectC++, to 
+hide the above mentioned complexities present in OpenCL parallel programming 
+from the programmer. 
+
+The aspects modularise both static components - the initialisation of the
+OpenCL variables - and dynamic components - creating the relevant buffers
+and allocating and deallocating memory on the host and device when kernels are
+executed. The kernel function is not dealt with by the \textit{CAPP} model. This
+decision was made as the kernel is specific to the implementation of the
+algorithm and would involve incredible complexity to allow a general aspect to
+convert a C++ function to an OpenCL kernel without loss of performance. To write 
+an OpenCL kernel the programmer does not need to learn the OpenCL API, however,
+does require an understanding of how parallel computation it performed in terms of
+the thread arrangement. It is a assumes that the programmer would have an
+understanding of how their algorithm is parallelized and hence could implement
+the kernel. Future improvements which remove this requirement are discussed in
+Section~\ref{sec:future}.
+
+The modularize the parallel code the \textit{CAPP} model has two main goals:
+\begin{itemize}
+	\item{To allow for a parallel implementation 
+			which is comparatively simple, in terms of code structure and number
+			of line, with a sequential, C++ only implementation
+		}
+	\item{To provide performance which is comparable with a non-aspect
+			implementation written using OpenCL or CUDA
+		}
+\end{itemize}
+
+\lstset{language		= c++,
+		frame			= single,
+		tabsize			= 2,
+		breaklines		= true,
+		basicstyle		= \scriptsize ,
+		escapeinside	= {<@}{@>},
+		captionpos		= b
+	}
+
+\begin{lstlisting}[caption=Vector addition using
+C++,label=vectcpp,float=[t!]]
+#define T float
+void VectAdditionC++(int argc, char** argv) {
+	<@\color{Green!85}{// Instantiate vector add class}@>
+	VectAddCppClass vectAdd;
+	<@\textcolor{Green!85}{// Declare data vectors}@>
+	vector<T>  in1, in2, out;
+	<@\textcolor{Green!85}{// Fill data vectors}@>
+	for (int i = 0; i < NUM_ELEMENTS; i++) {
+		out.push_back(0.f);
+		in1.push_back(rand());
+		in2.push_back(rand());
+	}
+	<@\textcolor{Green!85}{// Execute Kernel}@>
+	vectAdd.RunKernel(in1, in2, out);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Vector addition using
+OpenCL highlighting the different cross-cutting components,label=vectcl,float=[t!]]
+#define T float
+void VectAdditionCl(int argc, char** argv) {
+	<@\color{Red!85}{// Declare OpenCl variables}@>
+	vector<cl::Platform> platforms;
+	vector<cl::Device>   devices;
+	vector<cl::Buffer>   buffers;
+	cl::Context          context;
+	cl::CommandQueue     queue;
+	cl::Program          program;
+	cl::Kernel           kernel;
+	<@\textcolor{Green!85}{// Declare data vectors}@>
+	vector<vector<T>>    inputs;
+	vector<T>  in1, in2, out;
+	<@\textcolor{Green!85}{// Fill data vectors}@>
+	for (int i = 0; i < NUM_ELEMENTS; i++) {
+		out.push_back(0.f);
+		in1.push_back(rand());
+		in2.push_back(rand());
+	}
+	inputs.push_back(in1); inputs.push_back(in2);
+	<@\color{Red!85}{// Get OpenCL Platforms}@>
+	clPlatform::get(&platforms);
+	<@\color{Red!85}{// Create context parameters}@>
+	cl_context_properties cps[3] = {
+		CL_CONTEXT_PLATFORM,
+		(cl_context_properties)(platforms[0])(),
+		0 
+	};
+	<@\color{Red!85}{// Create OpenCL context}@>
+	context = cl::Context(CL_DEVICE_TYPE_GPU, cps);
+	<@\color{Red!85}{// Get available devices}@>
+	devices = context.getInfo<CL_CONTEXT_DEVICES>();
+	<@\color{Red!85}{// Create command queue}@>
+	queue = cl::CommandQueue(context, devices[0]);
+	<@\textcolor{Blue!85}{// Get kernel source}@>
+	ifstream kSource("vectadd.cl");
+	<@\textcolor{Blue!85}{// Convert kernel source to string}@>
+	string kstring(
+		istreambuf_iterator<char>(kSource),
+		(istreambuf_iterator<char>()) );
+	<@\textcolor{Blue!85}{// Create OpenCL program source}@>
+	cl::Program::Sources source(1, 
+		make_pair(kstring.c_str(), 
+		          kstring.length() + 1) );
+	<@\textcolor{Blue!85}{// Create OpenCL program}@>
+	program = cl::Program(context, source);
+	<@\textcolor{Blue!85}{// Create OpenCL kernel}@>
+	kernel = cl::Kernel(program, "vectadd");
+	<@\textcolor{Magenta!85}{// Create input buffers}@>
+	for (auto& input : inputs) {
+		buffers.emplace_back(context, 
+			CL_MEM_READ_ONLY, 
+			input.size() * sizeof(T) );
+		queue.enqueueWriteBuffer(buffers.back(),
+			CL_TRUE, 0, input.size() * sizeof(T),
+            &input[0] );
+	};
+	<@\textcolor{Magenta!85}{// Create output buffer}@>
+	buffers.emplace_back(context, CL_MEM_WRITE_ONLY,
+		out.size() * sizeof(T) );
+		<@\textcolor{Magenta!85}{// Set kernel arguments}@>
+	for (int i = 0; i < buffers.size(); i++) {
+		kernel.setArg(i, buffers[i]);
+	}
+	<@\textcolor{Magenta!85}{// Set thread dimensions}@>
+	cl::NDRange global(NUM_ELEMENTS);
+	cl::NDRange local(1);
+	<@\textcolor{Green!85}{// Execute Kernel}@>
+	queue.enqueueNDRangeKernel(kernel,
+		cl::NullRange, global, local);
+	<@\textcolor{Magenta!85}{// Get results from GPU}@>
+	T* res[NUM_ELEMENTS];
+	queue.enqueueReadBuffer(buffers.back(),
+		CL_TRUE, 0, out.size() * sizeof(T), res);
+}
+\end{lstlisting}
+The rest of the report is structured as follows: Section~\ref{sec:related}
+reviews work related to the simplification of parallel programming;
+Section~\ref{sec:aspects} describes the \textit{CAPP} programming model and the use 
+of AspectC++, and its features, to achieve the above mentioned goals; Section~\ref{sec:results}
+presents the results of \textit{CAPP}, CPU and OpenCL implementations to two
+problem domains:
+SAXPY and Black Scholes option pricing;
+Section~\ref{sec:evaluation} discusses the results and comments on the limitations 
+of the \textit{CAPP} model; 
+Section~\ref{sec:conclusion} concludes and Section~\ref{sec:future}
+provides possible directions of exploration for future work in this area.
+
+\section{Related Work}\label{sec:related}
+
+With the increasing popularity and necessity of parallel implementations,
+attempts to minimise the complexity of writing parallel code have both increased
+in number and made the task simpler. OpenCL and Nvidia CUDA are both examples of
+this. They provide extensions to the C language which are interfaces to the low-level
+parallel hardware. As mentioned in Section~\ref{sec:intro} this
+introduces cross-cutting code which `tangles' the core code. Additionally the API's 
+are extensive which require the programmer to invest a significant amount to
+learn before writing a parallel program.
+
+APIs, frameworks and entirely separate languages have been proposed which hide the low-level 
+interactions with the parallel capable from the programmer.
+These systems generally provide wrappers around the low-level interfaces 
+which often reduces the performance - a key consideration in parallel
+programming.
+
+CuPP \cite{breit:cupp} provides a C++ framework designed to increase the ease of implementing parallel
+applications using CUDA. It provides both low-level and high-level interfaces
+which interact with the parallel capable hardware, hence providing a C++
+interface for programming parallel applications. This is also an attempt to wrap
+the cross-cutting code into modules such that it is hidden from  the programmer,
+but in an object-oriented manner. The objects-orientated additions are not
+external to the C++ code resulting in more code than what is required for a traditional 
+CUDA implementation. Since the framework is built around CUDA, support is only provided 
+for Nvidia devices.
+
+CAF \cite{schmidt:actor} \cite{schmidt:actor1} uses the actor model to allow
+computation to be performed in a distributed manner. It provides bindings for
+OpenCL which allow the programmer to specify only the OpenCL kernel from which
+CAF creates an actor capable of executing the kernel. The framework allows
+computation on a vast number of parallel capable devices, which is a notable
+feature. However, providing support for so many devices introduces overhead and makes 
+the framework very large. Furthermore it requires learning the actor model 
+which introduces additional complexity into the parallel programming process.
+
+C++ AMP \cite{microsoft:amp} provides extensions to the C++ language which allow 
+data parallel capable hardware to be used to accelerate computation. C++ AMP is 
+only available for the Windows environment and is thus limited in scope which is
+contrary to the generality the proposed aspect implementation aims to provide.
+
+RapidMind \cite{rapidmind} and Brook \cite{brook}, while are similar to standard
+C++, essentially define new languages for parallel programming.
+
+RapidMind provides a parallel programming environment which, by
+taking advantage of C++ template metaprogramming, provides the programmer 
+with three data types: \textit{Value}, \textit{Array}, and \textit{Program}.
+The \textit{Value} and \textit{Array} data types hold data elements and 
+groups of data elements, respectively. The \textit{Program} data type stores
+operations which can act on \textit{Array} data types in a parallel manner.
+The \textit{Program} data type is essentially the same concept as the kernel 
+provided  by Nvidia and OpenCL, but in the C++ language. RapidMind also makes 
+use of macros which add complexity to the code, rather simplifying the code - 
+which is the intention of aspects.
+
+Brook provides high-level abstractions to hide the low-level parallel
+programming complexities from the programmer. Similarly to RapidMind there 
+are three abstractions which create the high-level parallel programming 
+environment: \textit{Stream}, \textit{Kernel}, and \textit{Reduction}. The 
+\textit{Stream} deals with the data, while the \textit{Kernel}, similar to both 
+the kernel in the Nvidia and OpenCL and the \textit{Program} data type for 
+RapidMind, allow operations to be defined which act on the \textit{Streams} (data). 
+The \textit{Reduction} is provided to generate a result from a high dimensional 
+\textit{Stream}.
+
+Both RapidMind and Brook do a lot of work at runtime to move the data to 
+the \textit{device} mememory and to allow parallel computation to be performed on the
+\textit{device}. This
+reduces their performance when compared with CUDA or OpenCL implementations 
+\cite{rmindperf} which has led to these parallel environments not
+gaining high levels of acceptance within the parallel development community.
+
+Work done on the use of aspects for parallel programming is limited, especially
+for low-level programming which interfaces directly with the parallel hardware.
+Use for aspects in a parallel context is proposed by \cite{jaspect}.
+However, Java is used and the model is based on multi-core CPUs and hence does not include the
+numerous complexities which arise from having additional computational devices such
+as GPUs.
+
+A new parallel aspect language, based on AspectC++, is proposed by
+\cite{wang:aosp}. Features closely related to AspectC++, but more specific to
+parallel programming, are defined to hide most of the cross-cutting complexities from the
+programmer. They manage to reduce the cross-cutting components considerably
+and allow the core computations to be defined using C++. The aspect model defines 
+a \textit{kernel} feature which behaves in the same way as \textit{advice} in AOP. 
+Furthermore the memory structure of the device is encapsulated using templates and allows the
+programmer to specify the type of \textit{device} memory to be used in C++. They
+provide a compiler  to weave the aspects defined using their aspect language into 
+the C++ core code. A performance reduction of only $\approx$20$\%$ of the CUDA
+implementation was achieved. 
+The aspect language and compiler are not yet fully functional as well as being
+specific to parallel programming. This specificity is beneficial for parallel
+only applications, however, does not lend itself to large C++ applications
+where only specific components may benefit from parallel acceleration. Thus at this
+stage could not be used to modularize non-parallel cross-cutting concerns into
+aspects.
+
+The \textit{CAPP} model provides a few advantages over the related work:
+(1) The aspect components use AspectC++ which is based on standard
+C++ and allows the core code to be written in standard C++ rather than providing
+an alternative language for parallel programming. This is beneficial for large
+systems as cross-cutting concerns arising from non-parallel complexities can be
+modularised using AspectC++. (2) Low-level parallel programming complexities are 
+hidden from the programmer using aspects. This results in C++ core code which has no
+components that cross-cut the code's intention, as well as kernel functions which
+can be executed from the C++ core code with a single function call. (3) There is 
+negligible loss in performance since the aspects are woven into the C++ core
+code before compilation and hence do not have runtime implications other than
+the necessary OpenCL related work.
+
+\section{C++ Aspect-Oriented Parallel \\ Programming (CAPP) Model}\label{sec:aspects}
+
+The \textit{CAPP} model presented in this section allows the programmer to
+write parallel programs in traditional C++ with the addition of specifying the kernel
+function to perform tasks on some data in a parallel manner. The aspects
+are written using AspectC++ and provide the functionality of the
+cross-cutting OpenCL code, hence `untangling' the C++ core code. The aspects
+are then woven into the C++ core class before compilation to allow the cross-cutting
+functionality to exist within the C++ core class at compile time. A high-level
+representation of the weaving process, and the minimum OpenCL functionality which is
+woven into the C++ core class, is shown in Figure~\ref{fig:weaving}. 
+The rest of this section explains the specific use of AspectC++ and it's
+features in the \textit{CAPP} model to provide a modular parallel programming
+environment. The OpenCL vector addition example of Listing~\ref{vectcl} is the
+reference from which the subsequent aspect Listings are based.
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=0.49\textwidth]{weaving}
+	\caption{High-level overview of the weaving process for the \textit{CAPP}
+		model. The output of the weaving process produces the code for
+	compilation.}
+	\label{fig:weaving}
+\end{figure}
+
+\subsection{Abstract ClContext Aspect}
+
+AspectC++ is based on C++ and hence provides functionality for both inheritance
+and polymorphism. The \textit{CAPP} model makes use of these features and defines
+an abstract aspect, the \textit{ClContext} aspect, which provides the core C++ code with 
+the cross-cutting OpenCL components necessary for executing a parallel kernel.
+The OpenCL  components, both variables and member functions, are defined in the abstract 
+aspect and are inherited by the derived aspect. Any additional OpenCL
+functionality (which may improve specific parallel implementations) can then be 
+defined in the derived aspect. Polymorphism is provided by AspectC++ 
+through virtual pointcuts, which were used in the abstract
+\textit{ClContext} aspect to define an interface for the derived aspect
+to specify which C++ core classes require parallel capability.
+The \textit{CoreClasses} pointcut in Listing~\ref{slice} shows this.
+The abstract aspect thus provides all the necessary OpenCL functionality which
+must be present for a parallel capable class, without defining which C++ class 
+the aspect functionality should be woven into. Listing~\ref{dslice} shows an
+example of a derived aspect for a C++ vector addition class (VectAddCppClass), 
+which uses the virtual pointcut \textit{CoreClasses} to define the C++ class
+into which the functionality must be woven.
+
+\subsection{OpenCL Variable Introduction}
+
+Observing Listing~\ref{vectcl} there numerous OpenCL specific variables
+(variables defined below the red comments) which are required to setup the 
+OpenCL environment. These are only the necessary variables, there are many
+more which provide additional features for parallel programming.
+Many of these variables must be modified or recreated each
+time a new kernel needs to be executed, requiring a significant amount of 
+overhead when compared to the C++ version of Listing~\ref{vectcpp}.
+
+AspectC++ provides the \textit{slice} feature for defining C++ classes within
+aspects. Furthermore, it allows for \textit{advice} to be defined for the 
+virtual pointcut. This advice can be implemented to use C++ inheritance which
+will allow aspect weaver to weave the \textit{slice} class as a base class for 
+any C++ core classes, or to derive from any C++ core classes. Using these features, the \textit{CAPP} model defines the 
+\textit{ClInstance} \textit{slice} class within the abstract \textit{ClContext} class.  
+The \textit{ClInstance} class has the cross-cutting OpenCL variables as public
+variables, and the cross-cutting OpenCL operations as private member functions.
+The weaver then weaves the \textit{ClInstance} class to be a base class of the C++
+classes defined by the \textit{CoreClasses} pointcut so that the OpenCL variables 
+are part of those C++ classes.
+Listing~\ref{slice} shows the \textit{CLInstance} \textit{slice} class within the abstract aspect,
+as well as the cross-cutting variables (below the red comments as per 
+Listing~\ref{vectcl}) and member functions which provide the cross-cutting
+OpenCL setup functionality.
+
+\begin{lstlisting}[caption=Abstract ClContext aspect which defines the OpenCL variables
+required for parallel programming,label=slice,float=[!t]]
+// ClContext.ah
+aspect ClContext {
+	class ClInstance {
+	public:
+		<@\color{Red!85}{// OpenCL variables}@>
+		vector<cl::Platform> platforms;
+		vector<cl::Device>   devices;
+		vector<cl::Buffer>   buffers
+		cl::clContext        context;
+		cl::CommandQueue     queue;
+		cl::Kernel           kernel;
+		cl::Program          program;
+		// Other variables and functions 
+	private:
+		<@\color{Red!85}{// Setup OpenCL variables}@>
+		void SetupOpenCl(string devType, string kSource);
+		<@\color{Blue!85}{// Setup OpenCL kernel}@>
+		void SetupKernel(string kSource, string kName);
+		<@\color{Magenta!85}{// Manage buffers on kernel execution}@>
+		void ManageBuffers(vector<vector<T>>* inputs,
+		                   vector<vector<T>>* outputs);
+	};
+	// Interface for defining C++ core classes
+	pointcut virtual CoreClasses() = 0;
+
+	// Specify ClInstance as baseclass of classes
+	// defined by CoreClasses()
+	advice CoreClasses() : baseclass(ClInstance);
+
+  // Other aspect components
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Derived aspect defining the C++ core classes which
+	require the OpenCL variables,label=dslice,float=[!t]]
+#include ``ClContext.ah"
+aspect VectAdd : ClContext {
+	// Define C++ core class to weave OpenCL 
+	// functionality into
+	pointcut CoreClasses() = "VectAddCppClass";
+};
+\end{lstlisting}
+
+\subsection{OpenCL Setup Function Introduction}
+
+Again observing Listing~\ref{vectcl}, a large amount of the cross-cutting code
+comes from the operations on the OpenCL variables. These operations (below the
+red comments in the Listings) are for the setup of the OpenCL environment, and 
+determine the available devices and platforms, and create the OpenCL context. They
+cross-cut the C++ core code since they are not directly related to the intention of the
+program. Furthermore, these operations are generic - they are the same for any 
+OpenCL program - allowing them to be defined as functions of the \textit{ClInstance} 
+\textit{slice} class. The operations for creating the kernel (below the blue 
+comments in Listings) have the same problems and can therefore also be defined
+as functions of the \textit{ClInstance} \textit{slice} class. 
+
+The \textit{ClContext} aspect then defines the \textit{ClSetup} pointcut to
+specify where in the C++ classes these functions should be executed. The
+\textit{CAPP} model defines the functions to be executed on construction of the
+C++ class. This is done so that once the C++ class has been instantiated,
+all OpenCL variables have been initialized to the appropriate values which allow
+parallel computation from the C++ class. 
+
+To provide the programmer with flexibility regarding the parallel context,
+the \textit{ClSetup} advice makes use AspectC++'s \textit{tjp} pointer. 
+The \textit{tjp} pointer provides the aspect with access to the C++ class, 
+into which the aspect will be woven. Using \textit{tjp->that()} in an aspect 
+is equivalent to using \textit{this} within a C++ core . This feature was used 
+to allow the programmer to specify the computation device (CPU or GPU), the 
+kernel source file, and kernel name as arguments of the C++ class constructor. 
+Using \textit{tjp->that()} allows the aspect to use the values provided by the 
+programmer from the C++ class. The aspect can then set up the OpenCL environment
+to the programmer's preference.
+Listing~\ref{clsetup} shows the definition of \textit{ClSetup} pointcut, and its 
+advice which calls the private member functions of the \textit{ClInstance}
+class, as defined in Listing~\ref{slice}.
+
+\begin{lstlisting}[caption=Abstract aspect with the pointcut and advice for
+OpenCL setup,label=clsetup,float=[!t]]
+// ClContext.ah
+aspect ClContext {
+	class ClInstance {
+		// As per Listing 3 ...
+	};
+	// Other pointcuts and advice
+
+	// Pointcut which defines where the OpenCL
+	// setup function should be woven
+	pointcut ClSetup = construction(CoreClasses());
+  
+	// Advice specifying how the OpenCL
+	// setup functions should be woven
+	advice ClSetup() : around() {
+		<@\color{Red!85}{// Setup OpenCL variables}@>
+		tjp->that()->SetupOpenCl(
+			tjp->that()->devType, tjp->that()->kSource);
+		<@\color{Blue!85}{// Setup OpenCL kernel}@>
+		tjp->that()->SetupKernel(
+			tjp->that()->kSource, tjp->that()->kName); 
+		// Continue with core class constructor
+		tjp->proceed();
+	}
+};
+\end{lstlisting}
+
+\subsection{RunKernel Interface}
+
+Executing the kernel is the main component of a parallel application. Before the
+kernel is run, the data on which the kernel operates must be moved from the
+memory of the \textit{host} to the memory of the \textit{device}. Once the
+kernel has finished executing, the results reside in the memory of the
+\textit{device} and are not available to the \textit{host} until transferred
+back from the \textit{device} memory to the \textit{host} memory. In OpenCL this
+is done using the cl::Buffer type and specifying if the \textit{device} memory
+must be read from or written to. These operations are shown in Listing~\ref{vectcl} 
+below the magenta comments. 
+
+This process of memory allocation, movement, and
+deallocation on each call of the kernel is not required for a C++ implementation
+and therefore cross-cut's the program's main intention. Furthermore, memory management 
+is a difficult problem in the C and C++ languages, which is exaggerated by the 
+introduction of the \textit{device} memory. As these operations are required each 
+time the kernel is executed, the amount of cross-cutting code growing linearly 
+with the number of kernels and kernel calls. 
+
+These problems are solved by the \textit{CAPP} model through aspects by defining
+a pure virtual \textit{RunKernel} function in the \textit{ClInstance} \textit{slice} class. 
+Since the \textit{ClInstance} 
+\textit{slice} class will be a  baseclass of any C++ class requiring parallel 
+functionality, the \textit{RunKernel} function implementation must be defined in the 
+C++ class. By defining the \textit{RunKernel} function as a pure virtual
+function the aspect knows the structure of the function, which allows the 
+\textit{ClContext} aspect to define advice which can use the arguments passed to
+the \textit{RunKernel} function by the programmer, to perform the cross-cutting 
+memory management code each time the \textit{RunKernel} function is called from
+the C++ class.
+
+The \textit{RunKernel} function specifies that the arguments provided to it from the
+C++ code must be vectors, which hold the input and output data for the
+kernel. This
+allows the C++ class defined by the programmer to execute a kernel by simply calling the
+\textit{RunKernel} function and passing the inputs and outputs as function
+arguments, as shown by Listing~\ref{crunkernel}. The \textit{tjp} pointer is 
+used again by the aspect, but this time to access the \textit{RunKernel} function arguments, 
+and hence the input and output data for the kernel so that the memory can be
+appropriately managed between the \textit{host} and \textit{device}.
+
+Listing~\ref{runkernel} shows the \textit{ManageKernel} pointcut and advice,
+which calls the \textit{ManageBuffers} function in the \textit{ClInstance}
+class, to perform the cross-cutting memory management between the \textit{host} and
+\textit{device} each time the \texit{RunKernel} function is called from the C++
+class.
+
+\begin{lstlisting}[caption=Abstract aspect components which hide kernel
+cross-cutting concerns,label=runkernel,float=[!t]]
+// ClContext.ah
+#define T float
+aspect CLContext {
+	class ClInstance {
+	public:
+		<@\color{Red!85}{// OpenCL variables ...}@>
+		<@\color{Green!85}{// Execute kernel}@>
+		virtual void RunKernel(
+			vector<vector<T>>& inputs,
+			vector<vector<T>>& outputs) = 0;
+	private:
+		<@\color{Red!85}{// Setup OpenCL variables ...}@>
+		<@\color{Blue!85}{// Setup OpenCL kernel ...}@>
+		<@\color{Magenta!85}{// Manage memory buffers}@>
+		void ManageBuffers(
+			vector<vector<T>>* inputs,
+			vector<vector<T>>* outptus);
+	};
+	// Other advice and pointcuts 
+
+	// Pointcut defines where the memory 
+	// buffers should be managed
+	pointcut ManageKernel() = 
+		execution("% ...::...::RunKernel(...)") &&
+		within(CoreClasses());
+
+	// Advice specifies how to manage buffers
+	advice ManageKernel() : before() {
+		<@\color{Magenta!85}{// Manage memory buffers}@>
+		tjp->that()->ManageBuffers(tjp->arg<0>(),
+								   tjp->arg<1>());
+  }
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption=C++ core class executing a pallel kernel using
+C++,label=crunkernel,float=[!t]]
+#define T float
+int VectAddCpp(int argc, char** argv) {
+	<@\color{Green!85}{// Instantiate vect addition class }@>
+	ParVectAddCppCore vectAdd;
+	<@\color{Green!85}{// Create input and output buffers}@>
+	vector<vector<T>> inputs;
+	vector<vector<T>> outputs;
+	<@\color{Green!85}{// Fill vectors with data ...}@>
+  
+	<@\color{Green!85}{// Execute kernel}@>
+	vectAdd.RunKernel(inputs, outputs);
+}
+\end{lstlisting}
+
+\section{Results}\label{sec:results}
+
+This section presents the results of application of the \textit{CAPP} model to two
+GPGPU programming problems. The first problem is the SAXPY
+(Single-precision a*X + Y) problem \cite{harris:saxpy}, and is relatively 
+simple to implement on a GPU. The
+second is the computation of options prices using the Black-Scholes pricing
+model \cite{gems:blackscholes} and
+is more complex than the SAXPY problem hence applies the \textit{CAPP} model 
+to more `tangled' core code. The result are analysed in terms of both performance 
+and code complexity by comparing the of the number of lines of the different
+implementations.
+
+\subsection{SAXPY Problem}
+
+Various vector sizes were used and the runtime of each of the implementations
+was measured to validate that the solution using the
+\textit{CAPP} model scales similarly to the OpenCL implementation. Figure~\ref{fig:saxpy} 
+shows the results for each implementations. Transferring
+the data between the CPU and the GPU is a large overhead for the SAXPY problem
+\cite{gregg:saxpy}. This is evident by the offset of the
+OpenCL and CAPP results for small vector sizes. Since the CPU implementation
+doesn't require data transfer to an external device the offset is not present.
+The rate of increase of the height of the bars for the CAPP and OpenCL solutions
+are similar, with the CAPP implementation scaling slightly worse than the pure
+OpenCL implementation. Both the OpenCl and CAPP implementation bars increase in
+height far less severely than the CPU implementation and hence provide much
+efficient computation for very large datasets. For some vector size the
+\textit{CAPP} implementation outperformed the OpenCL implementation, while the
+worst case performance was 27\% slower, and the average slowdown was 7\%;
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=0.45\textwidth]{Saxpy}
+	\caption{Results for the three implementations of the SAXPY problem. Lower
+	bar height is better.}
+	\label{fig:saxpy}
+\end{figure}
+
+The second performance metric for the \textit{CAPP} model is the number of lines
+of code relative to the OpenCL and C++ implementations. The results are shown in 
+Table~\ref{tab:saxpy}. The main files are the C++ (.h, .cpp) files as these are
+what the programmer will need to write, while the aspect files (.ah, .cc) are
+provided by the \text{CAPP} model. 
+
+\begin{table}[!b]
+\centering
+\caption{Comparison of the number of lines of code per file type for the SAXPY
+problem }
+\label{tab:saxpy}
+\begin{tabular}{|c|c|c|c|} 
+	\hline
+				& CAPP			& OpenCL		& C++	\\ \hline
+.h				& 48			& 0				& 38	\\ \hline
+.cpp			& 43			& 152			& 73	\\ \hline
+.ah				& 53			& 0				& 0		\\ \hline
+.cc				& 78			& 0				& 0		\\ \hline
+.cl				& 5				& 5				& 0		\\ \hline
+\textbf{Total}	& \textbf{227}	& \textbf{157}	& \textbf{111}		\\ \hline		
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Black-Scholes Option Pricing Problem}
+
+The Black-Scholes problem performs the evaluation of options using the
+Black-Scholes model for options pricing and is a good example of the real-world
+application of the \textit{CAPP} model. The number of options was varied and the
+execution time was measured for the \textit{CAPP}, OpenCL and CPU implementations.
+The results are shown in Figure~\ref{fig:blackscholes}. This example illustrates
+the benefit of using the \textit{CAPP} model in terms of performance. The APP
+implementation was again more efficient than the OpenCL implementation for some
+runs. On average the \textit{CAPP} implementation was 1.4\% slower than the
+OpenCL implementation. The CPU implementation was on average 4 times slower than
+the \textit{CAPP} and OpenCL implementations. 
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=0.45\textwidth]{BlackScholes}
+	\caption{Results for the three implementations of the Black-Scholes option
+		evaluation problem. Lower
+	bar height is better.}
+	\label{fig:blackscholes}
+\end{figure}
+
+The comparison of the number of lines of code for each of the implementations is
+shown in Table~\ref{tab:blackscholes}. The file types of interest are the same as 
+those mentioned in the SAXPY example. 
+
+\section{Evaluation and Limitations}\label{sec:evaluation}
+
+The results presented in the Section~\ref{sec:results} showed that the
+performance of the \textit{CAPP} model is similar to the of the OpenCL
+implementation, proving it's viability as an alternative approach for parallel
+programming. Furthermore, the number of lines of code comparison showed that the
+\textit{CAPP} implementation dramatically reduced the number of lines of code
+when compared to the OpenCL implementation and was more comparable with the C++
+implementation. Based on these results, the \textit{CAPP} model provides a
+parallel programming interface which is similar to C++ in terms of
+implementation complexity yet provides the performance of a parallel OpenCL
+implementation.
+
+\subsection{Limitations}
+
+Due to the weaving process happening before compilation, it was expected that
+the \textit{CAPP} implementation would provide performance equal to that of the
+OpenCL implementation, however, the results slowed a marginal slowdown. This is
+due to the limitations of using the aspect compiler. Since AspectC++ is still in
+the development process it does not support all the features of C++, templates
+are an example. This places a limitation on the C++ code the programmer may
+write if they are using the \textit{CAPP} model. From the results it is seen that
+the when using the AspectC++ weaver the woven code is not as fast as unwoven,
+tangles code. However, this minimal decrease in performance is offset by the
+modularity the aspects provide and this problem should be improved with newer
+version of AspectC++.
+
+\begin{table}[!b]
+\centering
+\caption{Comparison of the number of lines of code per file type for the
+Black-Scholes option pricing problem }
+\label{tab:blackscholes}
+\begin{tabular}{|c|c|c|c|} 
+	\hline
+				& CAPP			& OpenCL		& C++		\\ \hline
+.h				& 37			& 0				& 32		\\ \hline
+.cpp			& 55			& 181			& 121		\\ \hline
+.ah				& 53			& 0				& 0			\\ \hline
+.cc				& 78			& 0				& 0			\\ \hline
+.cl				& 73			& 73			& 0			\\ \hline
+\textbf{Total}	& \textbf{296}	& \textbf{254}	& \textbf{153}		\\ \hline		
+\hline
+\end{tabular}
+\end{table}
+
+\section{Conclusion}\label{sec:conclusion}
+
+This paper described the \textit{CAPP} model which using aspects to remove
+cross-cutting code from the C++ core code to allow a simpler, more modular
+solution for parallel programming. The aspects were implemented using AspectC++
+and the parallel functionality was implemented using OpenCL. The cross-cutting 
+components which were dealt with by the aspect were the setup of the OpenCL
+context and compiling the kernel, transfer of memory between the host and device
+for kernel execution, and the kernel execution itself. The aspect used by the
+\textit{CAPP} model aspect is abstract and can be used for any parallel programming
+application. An interface is providing for calling the OpenCL kernel from the
+C++ core code so that the C++ core code does not need to include any
+cross-cutting OpenCL code.
+
+Two example problems were looked at: vector addition and options pricing. The
+implementations were done using the \textit{CAPP} model, OpenCL and C++ and were
+compared. The performance of the \textit{CAPP} model was similar to that of the
+OpenCL implementation but structurally was similar to the C++ implementation in
+terms of the number of lines and modularity. Both \textit{CAPP} implementations
+required no OpenCL code in the C++ header or implementation files.
+
+\section{Future Work}\label{sec:future}
+
+The \textit{CAPP} model proposed in this paper looked at using aspects to hide
+the complexities and cross-cutting concerns of parallel programming. Only a
+fraction of the OpenCL API was used to allow OpenCL kernels to be run from the
+C++ core code without using OpenCL, however, the OpenCL API is extensive and
+provides many additional features which could be included in the abstract
+aspect.  
+
+The slight performance difference between the \textit{CAPP} implementations and
+the OpenCL implementations could be reduced by optimising the aspect code.
+OpenCL provides functionality which is available for GPUs from multiple vendors.
+Preliminary results on the latest development have shown that for Nvidia GPUs
+CUDA can sometimes improve performance. The \textit{CAPP} model could be extended
+to use the CUDA API if an Nvidia GPU is detected and then to use OpenCL for any
+other vendor as well as for CPU implementations. 
+
+The \textit{CAPP} model required the programmer to specify the kernel. While this
+was done to allow the programmer to write the kernel specifically for their
+application. However, another complexity of parallel programming is the
+conversion of the algorithm from its sequential form to a parallel one. It is
+often not known if the algorithm can be effectively parallelized. Future
+versions of the \textit{CAPP} model could provide the option to the programmer to
+provide their own kernel, or to specify the algorithm in C++ and has the aspect
+create the kernel, if possible. This would allow for complete modularisation of
+parallel programming yet still provide the developer with the option to provide
+a specific kernel if the algorithm is known to be complex or an optimal kernel
+implementation is known.
+
+%
+% The following two commands are all you need in the
+% initial runs of your .tex file to
+% produce the bibliography for the citations in your paper.
+\bibliographystyle{abbrv}
+\bibliography{sigproc}  % sigproc.bib is the name of the Bibliography in this case
+% You must have a proper ".bib" file
+%  and remember to run:
+% latex bibtex latex latex
+% to resolve all references
+%
+% ACM needs 'a single self-contained file'!
+%
+%CAPPENDICES are optional
+%\balancecolumns
+%Appendix A
+%\balancecolumns % GM June 2007
+% That's all folks!
+\end{document}

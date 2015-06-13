@@ -28,9 +28,9 @@
 #include <vector>
 #include <time.h>
 #include <iostream>
+#include <sstream>
 
 #define T float				// Data type used for computation 
-#define N 512 * 8 * 4 * 4 * 4 * 4 * 4
 #define I 2					// The number of input vectors for addition 
 
 using namespace std;
@@ -66,11 +66,12 @@ void VectAddKernel(vector<vector<T>> &in,
 
 int main(int argx, char** argv) {
 
+	istringstream ss(argv[1]);
+	int N;
+	ss >> N;
+	
 	// Declare the timer variables
 	timespec start, end;
-
-	// Start the clock
-	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);
 
 	// Declare the input and output vectors
 	vector<vector<T>> in;
@@ -87,13 +88,16 @@ int main(int argx, char** argv) {
 		in.push_back(tmp);
 	}
 
+	// Start the cllock
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);
+
 	// Run the kernel
 	VectAddKernel(in, out);
 
 	// Stop the timer
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end);
 
-	cout << "Time in nanoseconds: " << diff(start, end).tv_nsec << endl;
+	cout << N << " " << diff(start, end).tv_nsec << endl;
 	return 1;
 }
 

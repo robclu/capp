@@ -15,7 +15,7 @@ LIBS 		:= -lOpenCL -lrt
 all : $(EXE)
 
 $(EXE):
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $(EXE) $(SOURCES) $(LIBS)
+	$(CXX) -g $(CXXFLAGS) $(INCLUDES) -o $(EXE) $(SOURCES) $(LIBS)
 
 clean:
 	rm -rf $(EXE)
