@@ -14,7 +14,8 @@
            rounded corners,
            draw=black,
            text width=7cm,
-           minimum height=2em
+           minimum height=2em,
+		   font=\large
 	},
 	punktc/.style={
            rectangle,
@@ -22,7 +23,8 @@
            draw=black,
            text width=6cm,
            minimum height=2em,
-		   text centered
+		   text centered,
+		   font=\large
 	},
     % Define arrow style
     pil/.style={
@@ -34,9 +36,11 @@
 
 \begin{document}
 
+\pagestyle{empty}
+
 \begin{tikzpicture}[node distance=1cm, auto,]
  %nodes
-	\node[punkt] (cppbw) at (3,2){ \textbf{C++ Core Class} \{			\\
+	\node[punkt] (cppbw) at (3,2){ \textbf{C++ Class} \{			\\
 	 \quad public:												\\
 	 \qquad  C++ functions and variables						\\
 	 \quad private:												\\
@@ -45,8 +49,8 @@
 };
 
  \node[punkt, inner sep=5pt]
- (aspbw) at (12, 2) { \textbf{Aspect}: \{											\\
-		 \quad \textbf{ClInstace Class} \{								\\
+ (aspbw) at (12, 2) { \textbf{Aspect} \{											\\
+		 \quad \textbf{ClInstance Class} \{								\\
 			\qquad public:												\\
 			\quad \qquad \textcolor{Red!85}{OpenCL Variables}			\\
 			\quad \qquad \textcolor{Green!85}{RunKernel Interface}		\\
@@ -75,7 +79,7 @@
 	from device to host memory}};
 
  \node[punkt, inner sep=5pt]
- (woven) at (7.5, -17) { \textbf{C++ Core Class}: \{						\\
+ (woven) at (7.5, -17) { \textbf{C++ Class}: \{						\\
 			\quad public:												\\
 			\qquad C++ functions and variables						\\
 			\qquad \textcolor{Red!85}{OpenCL Variables}			\\
@@ -89,19 +93,19 @@
 };
 
 \node (name) at (7.5, -1.5) { WEAVER };
-\node (name) at (5, -2.5) { C++ CORE CLASS };
+\node (name) at (5, -2.5) { C++ CLASS };
 \node (name) at (9, -2.5) { ASPECT };
 \node (nam1) at (7.5, 5.5) { BEFORE WEAVING };
-\node (nam2) at (1.5, -13.5) { WOVEN C++ CORE CLASS};
+\node (nam2) at (1.5, -13.5) { WOVEN C++ CLASS};
 
  % Dots for weaver
 \draw[dashed, thick] (-1, -2) -- (16, -2) -- (16, -12) -- (-1, -12) -- (-1, -2);
 \draw[dashed, thick] (-1, 5) -- (16, 5) -- (16, -1) -- (-1, -1) -- (-1, 5);
 \draw[dashed, thick] (-1, -14) -- (16, -14) -- (16, -20) -- (-1, -20) --
 (-1, -14);
-\draw[dashed, thick] (-0.5, -3) -- (7, -3) -- (7, -11.5) -- (-0.5, -11.5) --
+\draw[dashed, thick] (-0.5, -3) -- (7, -3) -- (7, -11.8) -- (-0.5, -11.8) --
 (-0.5, -3);
-\draw[dashed, thick] (8, -3) -- (15.5, -3) -- (15.5, -11.5) -- (8, -11.5) --
+\draw[dashed, thick] (8, -3) -- (15.5, -3) -- (15.5, -11.8) -- (8, -11.8) --
 (8, -3);
 
 \draw[->] (cppbw.south) -- (3, -3);

@@ -1,7 +1,7 @@
 EXE 		:= VectAddSequentialNoAspects
 
 CXX  		:= g++
-CXXFLAGS 	:= -O1 -std=c++11
+CXXFLAGS 	:= -std=c++11
 
 SOURCES 	:= VectorAddSequentialNoAspects.cpp
 
