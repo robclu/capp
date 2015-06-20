@@ -1,10 +1,10 @@
-# EasyCL
+# CAPP (C++ Aspect-Oriented Parallel Programming)
 ========
-EasyCL is an aspect oriented implementation of OpenCL. AspectC++ is used simplify writing the host code and essentially allows programs to appear as normal c++ other than the writing of the kernel.
+CAPP is a C++ Aspect-Oriented OpenCL implementaiton. AspectC++ is used simplify writing the host code and essentially allows programs to appear as normal c++ other than the writing of the kernel.
 
 # Setup
 ---------
-To use EasyCL clone the repository. See the __Prerequisits__ section below for installing AspecC++ and OpenCL.
+To use CAPP, clone the repository. See the __Prerequisits__ section below for installing AspecC++ and OpenCL.
 
 The directory structure for any program using EasyCL should the same as that outline in the __Directory structure__ section. Examples can be seen in the Examples/exampleName/ folders. 
 
