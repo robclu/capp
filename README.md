@@ -1,12 +1,12 @@
-# CAPP (C++ Aspect-Oriented Parallel Programming)
+# __capp__ (C++ Aspect-Oriented Parallel Programming)
 ========
-CAPP is a C++ Aspect-Oriented OpenCL implementaiton. AspectC++ is used simplify writing the host code and essentially allows programs to appear as normal c++ other than the writing of the kernel.
+__capp__ uses aspects in c++ to simplify parallel programming with OpenCL. AspectC++ is used to perform most of the overhead of setting up the parallel programming context allowing users to focus on writing the kernels and performing the processing.
 
 # Setup
 ---------
-To use CAPP, clone the repository. See the __Prerequisits__ section below for installing AspecC++ and OpenCL.
+To use __capp__, clone the repository. See the __Prerequisits__ section below for installing AspecC++ and OpenCL.
 
-The directory structure for any program using EasyCL should the same as that outline in the __Directory structure__ section. Examples can be seen in the Examples/exampleName/ folders. 
+The directory structure for any program using __capp__ should the same as that outline in the __Directory structure__ section. Examples can be seen in the Examples/exampleName/ folders. 
 
 ## Prerequisits
 Currently there is only support for linux and OSX, but Windows support will be implemented soon.
