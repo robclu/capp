@@ -1,12 +1,8 @@
 # __capp__ (C++ Aspect-Oriented Parallel Programming)
 
-----
-
 __capp__ -- C++ Aspect-Oriented Parallel Programming -- uses aspects in c++ to simplify parallel programming with OpenCL. AspectC++ is used to encapsulate  most of the overhead of setting up the parallel programming context into an aspect, allowing users to focus on writing the kernels, rather than setting up context and transferring memory.
 
 ## Setup 
-
----------
 
 ### Prerequisits
 
@@ -34,8 +30,6 @@ Download and install the latest CUDA development kit from [CUDA](https://develop
 
 ## Usage
 
----
-
 Two examples are provided for using __capp__, one for vector addition and the other for option pricing using
 the Black-Scholes option pricing model.
 
@@ -52,13 +46,9 @@ perofrmed by the aspect before compilation.
 
 ## Notes
 
----
-
 * Please do not change the name, move or delete the ```temp``` directory in the __capp__ example folder as it is used by the makefile to remove messy object and aspect files from the aspect compiler.
 
 ## Makefile
-
----
 
 The Makefile must be in the project root directory (see the __capp__ examples folder). The directory names can be changed appropriately in the Makefile by editing the *_DIR variables in the Makefile.
 
@@ -66,8 +56,6 @@ Additionally, make sure that the environment variables in the Makefile you wish 
 your environment.
 
 ## Compiling
-
----
 
 To compile any program make sure that the files are in correct directories as illustrated by the examples provided in the ```examples/capp``` directory (the provided Makefile will not work if the structure is changed but not updated in the Makefile).
 
