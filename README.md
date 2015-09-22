@@ -1,20 +1,20 @@
 # __capp__ (C++ Aspect-Oriented Parallel Programming)
 ========
-__capp__ uses aspects in c++ to simplify parallel programming with OpenCL. AspectC++ is used to perform most of the overhead of setting up the parallel programming context allowing users to focus on writing the kernels and performing the processing.
+__capp__ -- which stands for C++ Aspect-Oriented Parallel Programming -- uses aspects in c++ to simplify parallel programming with OpenCL. AspectC++ is used to encapsulate  most of the overhead of setting up the parallel programming context into an aspect, allowing users to focus on writing the kernels, rather than setting up context and transferring memory.
 
-# Setup
+# Setup 
 ---------
-To use __capp__, clone the repository. See the __Prerequisits__ section below for installing AspecC++ and OpenCL.
-
-The directory structure for any program using __capp__ should the same as that outline in the __Directory structure__ section. Examples can be seen in the Examples/exampleName/ folders. 
 
 ## Prerequisits
-Currently there is only support for linux and OSX, but Windows support will be implemented soon.
+Currently there is only support for linux and OSX, but Windows support is intended. I have managed to
+cross-compile this from Linux to Windows 8, so it should working with Windows if the pre-requists are all
+installed.
 
 ### Linux
+
 To install AspectC++ on Ubuntu simply type ```sudo apt-get install aspectc++```. Alternatively constult [AspecC++](http://www.aspectc.org/Download.php).
 
-To install OpenCL you need to download the SDK relevant to the device you have. For any CPU and AMD GPU, the AMD SDK will work, for NVIDIA GPU's the NVIDIA OpenCL SDK and cuda development tools are required.
+To install OpenCL you need to download the SDK relevant to the device you have. For any CPU or AMD GPU, the AMD SDK will work, for NVIDIA GPU's the NVIDIA OpenCL SDK and cuda development tools are required.
 
 #### AMD 
 First get the AMD SDK from [AMD](http://developer.amd.com/tools-and-sdks/opencl-zone/amd-accelerated-parallel-processing-app-sdk/). 
@@ -26,31 +26,37 @@ Then install the opencl headers. On Ubuntu this is done by ```sudo apt-get insta
 #### NVIDIA
 Download and install the latest CUDA development kit from [CUDA](https://developer.nvidia.com/cuda-downloads) and follow their instructions. Again make sure that cl.hpp is version 1.1 (__this is very important for NVIDIA__).
 
-## Directory structure
-The following is the directory structure which must be used:
+# Usage
+Two examples are provided for using __capp__, one for vector addition and the other for option pricing using
+the Black-Scholes option pricing model.
 
-```
--ProjectRoot
---aspects
----*.ah, *.cc (All aspects)
---kernels
---- *.cl (All kernels)
---src
----*.h, *.cpp (All cpp source)
---builds
---- All executables reside inside builds
---tests
---- tests.cpp (The test source file)
---temp
---- (Usually empty, but used by the aspect weaver and the compiler to build executables)
---Makefile
-```
-**Note** Please do not change the name, move or delete the ```temp``` directory
-or else this wont compile. A fix for this will be implemented in the near
-future.
+The examples can be found under ```examples/capp``` in the relevant folder. A Makefile is included to build
+the files. You will need to specify the number of elements for computation as a command line argument to the
+executable.
+
+Examples are also included for sequential implementations at ```examples/sequential``` and for opencl
+implementation at ```examples/opencl``` (the opencl examples are the Nvidia samples implementation).
+
+The intention of including the additional examples is to illustrate how simple the __capp__ c++ files are for
+parallel programming (in the ```/src``` directories in the relevant example, as most of the overhead is
+perofrmed by the aspect before compilation.
+
+# Notes
+
+* Please do not change the name, move or delete the ```temp``` directory in the __capp__ example folder as it is used by the makefile to remove messy object and aspect fiels from the aspect compiler.
 
 ## Makefile
-The Makefile must be in the project root directory as specified above. The directory names can be changed appropriately in the Makefile by editing the *_DIR variables in the Makefile.
+The Makefile must be in the project root directory (see the __capp__ examples folder). The directory names can be changed appropriately in the 
+Makefile by editing the *_DIR variables in the Makefile.
+
+Additionally, make sure that the environment variables in the Makefile you wish to use are appropriate for
+your environment.
 
 ## Compiling
-To compile any program make sure that the files are in correct directories as specified above. Also make sure that you have AspectC++ and OpenCL installed, see __Prerequisits__ section. Once in the __ProjectRoot__ directory type "__make__" and the executable will reside in the __ProjectRoot/builds/__ directory.
+To compile any program make sure that the files are in correct directories as specified above. 
+Also make sure that you have AspectC++ and OpenCL installed, as per  (Prerequisits)(#prerequisits). 
+Once in the example root directory, issue the
+
+```make`` 
+
+command and the executable will reside in the ```builds``` directory.

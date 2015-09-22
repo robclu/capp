@@ -1,0 +1,19 @@
+/*
+ * Aspect that is used to setup the OpenCl
+ * components of a parallel class. This essentially 
+ * abstracts the OpenCL setup away from the class and 
+ * allows it to behave like normal x86 code.
+ * */
+
+#ifndef BLACK_SCHOLES_ASPECT_AH
+#define BLACK_SCHOLES_ASPECT_AH
+
+#include "clContext.ah"
+
+aspect BlackScholesAspect : public clContext {
+public:
+    // OpenCL program name on which to apply aspect
+    pointcut programs() = "BlackScholes";   
+};
+
+#endif

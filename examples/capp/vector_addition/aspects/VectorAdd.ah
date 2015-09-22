@@ -1,0 +1,22 @@
+/*
+ * Aspect that is used to setup the OpenCl
+ * components of a parallel class. This essentially 
+ * abstracts the OpenCL setup away from the class and 
+ * allows it to behave like normal x86 code.
+ * */
+
+#ifndef VECTORADD_ASPECT_AH
+#define VECTORADD_ASPECT_AH
+
+// Include generic aspect defined by capp
+#include "clContext.ah"
+
+// Derive from the default aspect
+aspect VectorAdd : public clContext {
+public:
+	// C++ into which the aspects should be moven 
+	pointcut programs() = "VectorAddParallel";	
+
+};
+
+#endif
